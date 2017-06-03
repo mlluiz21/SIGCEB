@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/estilo.css" />
+
+	<title>Sistema CEB</title>
+
+</h:head>
+
+<h:body>
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="150" collapsible="true" >
+
+			<p:megaMenu style="margin-top:75px; font-size: 15px">
+			
+				<p:menuitem value="Páginal Inicial" url="/pages/site/home.xhtml" icon="ui-icon-home" />
+
+				<p:menuitem value="Campeonatos" url="/pages/site/listCompeticao.xhtml" icon="ui-icon-document" />
+
+				<p:menuitem value="Cadastre-se" url="/pages/organizador/fazerCadastro.xhtml" icon="ui-icon-pencil" />
+
+				<p:menuitem value="Solicitar Participação" url="/pages/solicitantes/enviarSolicitacao.xhtml" icon="ui-icon-pencil" />
+				
+				<p:menuitem value="SIGCEB" url="#" icon="ui-icon-contact" />
+
+				<p:menuitem value="Fazer Login" url="/pages/login2.xhtml"
+					icon="ui-icon-refresh" />
+				
+			</p:megaMenu>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+        
+        <ui:insert name="conteudoPrincipalSite" />
+        
+  		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50" collapsible="true">
+
+			<ui:insert name="footer">
+				<ui:include src="/pages/pagesTemplate/includes/footer.xhtml" />
+			</ui:insert>
+
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+
+</h:body>
+</html>

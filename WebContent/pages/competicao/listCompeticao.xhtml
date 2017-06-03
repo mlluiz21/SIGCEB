@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/pages/pagesTemplate/templateSistema.xhtml">
+
+		<ui:define name="conteudoPrincipal">
+	
+				<p:dataTable id="listaCompeticao"
+					value="#{CampeonatosMB_Controller.listCompeticoes}"
+					var="competicao" emptyMessage="Nenhuma competicão cadastada."
+					rows="15" paginator="true" paginatorPosition="bottom">
+
+					<p:column headerText="Tipo de Competição"
+						sortBy="#{competicao.tipoDeCompeticao}">
+						<h:outputText value="#{competicao.tipoDeCompeticao}" />
+					</p:column>
+
+					<p:column headerText="Nome da Competição"
+						sortBy="#{competicao.nomeDaCompeticao}">
+						<h:outputText value="#{competicao.nomeDaCompeticao}" />
+					</p:column>
+
+					<p:column headerText="Duração" width="80"
+						sortBy="#{competicao.duracao}">
+						<h:outputText value="#{competicao.duracao}" />
+					</p:column>
+
+					<p:column headerText="Quant. de Equipes" width="120">
+						<h:outputText value="#{competicao.quantidadeDeEquipes}" />
+					</p:column>
+
+					<p:column headerText="Quant. De Grupos">
+						<h:outputText value="#{competicao.quantidadeDeGrupos}" />
+					</p:column>
+
+					<p:column headerText="Data de Início"
+						sortBy="#{competicao.dataDeInicio}">
+						<h:outputText value="#{competicao.dataDeInicio}" />
+					</p:column>
+
+					<p:column headerText="Regras da Competição">
+						<h:outputText value="#{competicao.regrasDaCompeticao}" />
+					</p:column>
+
+				</p:dataTable>
+			
+		</ui:define>
+	</ui:decorate>
+</ui:composition>

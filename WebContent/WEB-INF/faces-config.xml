@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2" /> 
+	
+<!-- 	<managed-bean> -->
+<!-- <managed-bean-name>userMB</managed-bean-name> -->
+<!-- <managed-bean-class>controle.UsuarioMB</managed-bean-class> -->
+<!-- <managed-bean-scope>request</managed-bean-scope> -->
+<!-- </managed-bean -->
+
+<!-- <navigation-rule> -->
+<!-- <from-view-id>/cadastrousuarios.jsp</from-view-id> -->
+<!-- <navigation-case> -->
+<!-- <from-outcome>login</from-outcome> -->
+<!-- <to-view-id>/login.jsp</to-view-id> -->
+<!-- </navigation-case> -->
+<!-- <navigation-case> -->
+<!-- <from-outcome>listar</from-outcome> -->
+<!-- <to-view-id>/listarusuarios.jsp</to-view-id> -->
+<!-- </navigation-case> -->
+<!-- </navigation-rule> -->
+
+<!-- Declaração das taglibs do JSF no início da página JSP: -->
+<!-- <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%> -->
+<!-- <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%> -->
+
+	
+	

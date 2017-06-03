@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:decorate template="../pagesTemplate/templateSite.xhtml">
+
+	<ui:define name="conteudoPrincipalSite">
+
+		<h:form id="solicitar">
+
+			<p:panel header="Enviar Solicitação"
+				style="width:600px; margin: 0 auto; text-align:center">
+
+				<br />
+				<p:panelGrid columns="2" style="margin: 0 auto; text-align:left">
+
+					<h:outputLabel value="Login do Organizador"
+						for="loginDoOrganizador" />
+					<p:inputText id="loginDoOrganizador"
+						value="#{SolicitarParticipacaoMBController.usuario.login}" />
+
+					<h:outputLabel value="Nome Completo" for="nomeCompleto" />
+					<p:inputText id="nomeCompleto"
+						value="#{SolicitarParticipacaoMBController.solicitante.nomeCompleto}" />
+
+					<h:outputLabel value="Nome da Equipe" for="nomeDaEquipe" />
+					<p:inputText id="nomeDaEquipe"
+						value="#{SolicitarParticipacaoMBController.solicitante.nomeDaEquipe}" />
+
+					<h:outputLabel value="Email" for="email" />
+					<p:inputText id="email"
+						value="#{SolicitarParticipacaoMBController.solicitante.email}" />
+
+					<h:outputLabel value="Cidade" for="cidade" />
+					<p:inputText id="cidade"
+						value="#{SolicitarParticipacaoMBController.solicitante.cidade}" />
+
+					<h:outputLabel value="Bairro" for="bairro" />
+					<p:inputText id="bairro"
+						value="#{SolicitarParticipacaoMBController.solicitante.bairro}" />
+
+					<h:outputLabel value="Telefone Residêncial"
+						for="telefoneResidencial" />
+					<p:inputText id="telefoneResidencial"
+						value="#{SolicitarParticipacaoMBController.solicitante.telefoneResidencial}" />
+
+					<h:outputLabel value="Telefone Celular" for="telefoneCelular" />
+					<p:inputText id="telefoneCelular"
+						value="#{SolicitarParticipacaoMBController.solicitante.telefoneCelular}" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:decorate>
+</html>

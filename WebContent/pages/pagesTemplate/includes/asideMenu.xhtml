@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:growl autoUpdate="true" />
+
+		<p:panelMenu style="width:100%">
+
+			<p:submenu label="Cadastrar">
+
+				<p:menuitem value="Atleta" process="@this" oncomplete="PF('edicaoAtletaDialog').show()"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Arbitro" onclick="" icon="ui-icon-disk" />
+				<p:menuitem value="Competição" onclick="" icon="ui-icon-disk" />
+				<p:menuitem value="Equipe" onclick="" icon="ui-icon-disk" />
+				<p:menuitem value="Responsável por Equipe" onclick=""
+					icon="ui-icon-disk" />
+
+			</p:submenu>
+
+			<p:submenu label="Pesquisar">
+
+				<p:menuitem value="Arbitro"
+					url="/pages/comissaoArbitragem/listArbitros.xhtml" ajax="false"
+					icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Atleta" url="/pages/atleta/listAtleta.xhtml"
+					ajax="false" icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Competição"
+					url="/pages/competicao/listCompeticao.xhtml" ajax="false"
+					icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Equipe" url="/pages/equipe/listEquipes.xhtml"
+					ajax="false" icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Responsável por Equipe"
+					url="/pages/responsavelEquipe/listResponsavelPorEquipe.xhtml"
+					icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Lista de Solicitações" url="/pages/solicitantes/listSolicitacao.xhtml"
+					icon="ui-icon-arrowrefresh-1-w" />
+
+			</p:submenu>
+
+			<p:separator />
+			<p:submenu label="Navigations">
+				<p:submenu label="Links" icon="ui-icon-extlink">
+					<p:submenu label="PrimeFaces" icon="ui-icon-heart">
+						<p:menuitem value="Home" url="http://www.primefaces.org"
+							icon="ui-icon-home" />
+						<p:menuitem value="Docs"
+							url="http://www.primefaces.org/documentation"
+							icon="ui-icon-document" />
+						<p:menuitem value="Download"
+							url="http://www.primefaces.org/downloads"
+							icon="ui-icon-arrowthick-1-s" />
+						<p:menuitem value="Support"
+							url="http://www.primefaces.org/support" icon="ui-icon-wrench" />
+					</p:submenu>
+				</p:submenu>
+
+			</p:submenu>
+		</p:panelMenu>
+
+	</h:form>
+
+
+	<h:form id="formAtleta">
+
+		<br></br>
+
+		<p:dialog header="Cadastrar novo(a) Atleta"
+			widgetVar="edicaoAtletaDialog" id="atleta-dialog" resizable="false"
+			modal="true" closeOnEscape="true">
+
+			<p:panelGrid columns="2"
+				style="width:550px; text-align:left; margin: 0 auto">
+
+				<h:outputLabel value="Nome Completo:" for="nomeCompleto" />
+				<p:inputText size="50" id="nomeCompleto" maxlength=""
+					value="#{pessoaMBController.pessoa.nomeCompleto}" required="true"
+					requiredMessage="O Campo Nome Completo é obrigatório." />
+
+				<h:outputLabel value="CPF:" for="cpf" />
+				<p:inputMask id="cpf" value="#{pessoaMBController.pessoa.cpf}"
+					required="true" requiredMessage="O Campo CPF é obrigatório."
+					mask="999.999.999-99" />
+
+				<h:outputLabel value="RG:" for="rg" />
+				<p:inputMask id="rg" value="#{pessoaMBController.pessoa.rg}"
+					required="true" requiredMessage="O Campo RG é obrigatório."
+					mask="999.999.999-9" />
+
+				<h:outputLabel value="Data de Nascimento:" for="dataDeNascimento" />
+				<p:calendar id="dataDeNascimento" pattern="dd/MM/yyyy"
+					mask="99/99/9999"
+					value="#{pessoaMBController.pessoa.dataDeNascimento}"
+					required="true"
+					requiredMessage="O Campo Data de Nascimento é obrigatório." />
+
+				<h:outputLabel value="Sexo:" for="sexo" />
+				<p:selectOneMenu size="1" id="sexo"
+					value="#{pessoaMBController.pessoa.sexo}" required="true"
+					requiredMessage="O Campo Sexo é obrigatório.">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems value="#{pessoaMBController.sexo}" var="sexo"
+						itemLabel="#{sexo}" itemValue="#{sexo}" />
+
+				</p:selectOneMenu>
+
+				<h:outputLabel value="Nome da Mãe:" for="nomeDaMae" />
+				<p:inputText size="50" id="nomeDaMae" maxlength=""
+					value="#{pessoaMBController.pessoa.nomeDaMae}" required="true"
+					requiredMessage="O Campo Nome da Mãe é obrigatório." />
+
+				<h:outputLabel value="Nome do Pai:" for="nomeDoPai" />
+				<p:inputText size="50" id="nomeDoPai" maxlength=""
+					value="#{pessoaMBController.pessoa.nomeDoPai}" required="true"
+					requiredMessage="O Campo Nome do Pai é obrigatório." />
+
+				<h:outputLabel value="Estado Civil:" for="estadoCivil" />
+				<p:selectOneMenu size="13" id="estadoCivil"
+					value="#{pessoaMBController.pessoa.estadoCivil}" required="true"
+					requiredMessage="O Campo Estado Civil é obrigatório.">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemLabel="#{estadoCivil.descricao}"
+						var="estadoCivil" itemValue="#{estadoCivil}"
+						value="#{pessoaMBController.estadoCivil}" />
+
+				</p:selectOneMenu>
+
+				<h:outputLabel value="Tipo Sanguineo:" for="tipoSanguineo" />
+				<p:selectOneMenu size="3" id="tipoSanguineo"
+					value="#{pessoaMBController.pessoa.tipoSanguineo}" required="true"
+					requiredMessage="O Campo Tipo Sanguineo é obrigatório.">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemLabel="#{tipoSanguineo.descricao}"
+						var="tipoSanguineo" itemValue="#{tipoSanguineo}"
+						value="#{pessoaMBController.tipoSanguineo}" />
+
+				</p:selectOneMenu>
+
+				<h:outputLabel value="Grau de Escolaridade:"
+					for="grauDeEscolaridade" />
+				<p:selectOneMenu size="20" id="grauDeEscolaridade"
+					value="#{pessoaMBController.pessoa.grauDeEscolaridade}"
+					required="true"
+					requiredMessage="O Campo Grau de Escolaridade é obrigatório.">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemLabel="#{grauDeEscolaridade.descricao}"
+						var="grauDeEscolaridade" itemValue="#{grauDeEscolaridade}"
+						value="#{pessoaMBController.grauDeEscolaridade}" />
+
+				</p:selectOneMenu>
+
+				<h:outputLabel value="E-mail:" for="email" />
+				<p:inputText size="50" id="email" maxlength=""
+					value="#{pessoaMBController.pessoa.email}"
+					validator="email-validator" required="true"
+					requiredMessage="O Campo E-mail é obrigatório." />
+
+				<h:outputLabel value="Telefone" for="tel" />
+				<p:inputText id="tel" value="#{pessoaMBController.pessoa.telefone}"
+					required="true" requiredMessage="O Campo Telefone é obrigatório." />
+
+				<h:outputLabel value="Logradouro:" for="rua" />
+				<p:inputText size="50" id="rua" maxlength=""
+					value="#{pessoaMBController.pessoa.endereco.logradouro}" />
+
+				<h:outputLabel value="Nº:" for="num" />
+				<p:inputText size="8" id="num" maxlength=""
+					value="#{pessoaMBController.pessoa.endereco.numero}" />
+
+				<h:outputLabel value=" Complemento:" for="comp" />
+				<p:inputText size="40" id="comp" maxlength=""
+					value="#{pessoaMBController.pessoa.endereco.complemento}" />
+
+				<h:outputLabel value="Bairro:" for="bairro" />
+				<p:inputText size="50" id="bairro" maxlength=""
+					value="#{pessoaMBController.pessoa.endereco.bairro}" />
+
+				<h:outputLabel value="Cidade:" for="cidade" />
+				<p:inputText size="50" id="cidade" maxlength=""
+					value="#{pessoaMBController.pessoa.endereco.cidade}" />
+
+				<h:outputLabel value="UF:" for="uf" />
+				<p:selectOneMenu size="2" id="uf"
+					value="#{pessoaMBController.pessoa.endereco.uf}">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemValue="#{uf}" var="uf" itemLabel="#{uf}"
+						value="#{pessoaMBController.uf}" />
+
+				</p:selectOneMenu>
+
+				<h:outputLabel value="CEP:" for="cep" />
+				<p:inputMask size="10" id="cep" mask="99.999-999"
+					value="#{pessoaMBController.pessoa.endereco.cep}" />
+
+			</p:panelGrid>
+			<br></br>
+
+			<h:panelGroup layout="block" style="text-align: center">
+
+				<h:commandButton ajax="false" id="btnSalvar"
+					action="#{pessoaMBController.salvarPessoa}" value="Salvar" />
+				<h:commandButton ajax="false" id="btnCancelar"
+					action="#{pessoaMBController.cancelarPessoa}"
+					immediate="true" value="Cancelar" />
+			</h:panelGroup>
+
+
+
+		</p:dialog>
+	</h:form>
+
+
+
+
+
+
+
+</ui:composition>

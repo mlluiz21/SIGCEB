@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/pages/pagesTemplate/templateSistema.xhtml">
+
+		<ui:define name="conteudoPrincipal">
+
+			<p:dataTable id="responsavelPorEquipe"
+				value="#{ResponsavelPorEquipeMBController}"
+				var="responsavelEquipe"
+				emptyMessage="Nenhum Responsável por Equipe cadastrado." rows="15"
+				paginator="true" paginatorPosition="bottom">
+
+				<p:column headerText="Nome Completo" sortBy="#{ResponsavelPorEquipeMBController.pessoa.nomeCompleto}">
+					<h:outputText value="#{ResponsavelPorEquipeMBController.pessoa.nomeCompleto}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{ResponsavelPorEquipeMBController.pessoa.telefone}" />
+				</p:column>
+				
+				<p:column headerText="Bairro" sortBy="#{ResponsavelPorEquipeMBController.pessoa.endereco.bairro}">
+					<h:outputText value="#{ResponsavelPorEquipeMBController.pessoa.endereco.bairro}" />
+				</p:column>
+				
+				<p:column headerText="Nome da Equipe" sortBy="#{ResponsavelPorEquipeMBController.responsavelPorEquipe.nomeDaEquipe}">
+					<h:outputText value="#{ResponsavelPorEquipeMBController.responsavelPorEquipe.nomeDaEquipe}" />
+				</p:column>
+				
+				<p:column headerText="Nome Fantasia da Equipe" sortBy="#{ResponsavelPorEquipeMBController.equipe.nomeFantasia}">
+					<h:outputText value="#{ResponsavelPorEquipeMBController.equipe.nomeFantasia}" />
+				</p:column>
+				
+
+			</p:dataTable>
+
+		</ui:define>
+	</ui:decorate>
+</ui:composition>

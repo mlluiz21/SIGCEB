@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/pages/pagesTemplate/templateSite.xhtml">
+
+		<ui:define name="conteudoPrincipalSite">
+
+			<h:form id="formRecuperarSenha" style="margin:0 auto">
+
+				<p:panel header="Recuperar senha"
+					style="position:relative; top:70px; width:400px; margin: 0 auto; text-align:center">
+
+					<br></br>
+
+					<p:panelGrid columns="2" style="margin: 0 auto">
+
+						<h:outputText value="Login:" for="login" />
+
+						<p:inputText id="login" value="#{loginMBController.login}"
+							required="false" requiredMessage="O Campo Login é obrigatório." />
+
+						<h:outputText value="Email:" for="email" />
+
+						<p:password id="email" value="#{loginMBController.pessoa.email}"
+							required="false" requiredMessage="O Campo Email é obrigatório." />
+
+					</p:panelGrid>
+
+					<br></br>
+
+					<!-- MOSTRAR MENSAGEM DE ENVIAR DA SENHA PARA O EMAIL DO USUÁRIO -->
+					
+					<p:commandButton id="btnEnviar" value="Enviar"
+						action="#{loginMBController}" ajax="false" />
+
+					<h:commandButton id="btnCancelar" value="Cancelar"
+						action="#{loginMBController2.cancelarRecuperarSenha}" ajax="false" />
+
+				</p:panel>
+
+			</h:form>
+
+		</ui:define>
+	</ui:decorate>
+</ui:composition>
