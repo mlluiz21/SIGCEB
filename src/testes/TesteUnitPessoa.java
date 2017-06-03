@@ -1,5 +1,6 @@
 package testes;
 
+import enuns.EstadoCivil;
 import modelo.dao.PessoaDAO;
 import modelo.dominio.Pessoa;
 
@@ -14,7 +15,7 @@ public class TesteUnitPessoa {
 		p.setNomeCompleto("Marcelo Luiz");
 		p.setCpf(1111522226);
 		p.setRg(222256111);
-		
+		p.setEstadoCivil(EstadoCivil.SOLTEIRO);
 		p.setNomeDaMae("Elze");
 		p.setNomeDoPai("Jo");
 			
