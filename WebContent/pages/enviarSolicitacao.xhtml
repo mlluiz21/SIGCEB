@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:decorate template="../pages/pagesTemplate/templateSite.xhtml">
+
+	<ui:define name="conteudoPrincipalSite">
+
+		<h:form id="solicitar">
+
+			<p:panel header="Enviar Solicitação"
+				style="width:600px; margin: 0 auto; text-align:center">
+				
+				<p:panelGrid columns="2" style="margin: 0 auto; text-align:left">
+
+					<h:outputLabel value="Login do Organizador"
+						for="loginDoOrganizador" />
+					<p:inputText id="loginDoOrganizador"
+						value="#{SolicitarParticipacaoMBController.solicitante.loginDoOrganizador}" />
+
+					<h:outputLabel value="Nome Completo" for="nomeCompleto" />
+					<p:inputText id="nomeCompleto"
+						value="#{SolicitarParticipacaoMBController.solicitante.nomeCompleto}" />
+
+					<h:outputLabel value="Nome da Equipe" for="nomeDaEquipe" />
+					<p:inputText id="nomeDaEquipe"
+						value="#{SolicitarParticipacaoMBController.solicitante.nomeDaEquipe}" />
+
+					<h:outputLabel value="Email" for="email" />
+					<p:inputText id="email"
+						value="#{SolicitarParticipacaoMBController.solicitante.email}" />
+
+					<h:outputLabel value="Cidade" for="cidade" />
+					<p:inputText id="cidade"
+						value="#{SolicitarParticipacaoMBController.solicitante.cidade}" />
+
+					<h:outputLabel value="Bairro" for="bairro" />
+					<p:inputText id="bairro"
+						value="#{SolicitarParticipacaoMBController.solicitante.bairro}" />
+
+					<h:outputLabel value="Telefone Residêncial"
+						for="telefoneResidencial" />
+					<p:inputMask id="telefoneResidencial" mask="(99)9999-9999" converter="tel-converter"
+						value="#{SolicitarParticipacaoMBController.solicitante.telefoneResidencial}" />
+
+					<h:outputLabel value="Telefone Celular" for="telefoneCelular" />
+					<p:inputMask id="telefoneCelular" mask="(99)99999-9999" converter="tel-converter"
+						value="#{SolicitarParticipacaoMBController.solicitante.telefoneCelular}" />
+
+				</p:panelGrid>
+				
+				<br/>
+					<p:commandButton ajax="false" id="btnEnviar"
+						action="#{SolicitarParticipacaoMBController.enviarSolicitacao()}" value="Enviar" />
+
+					<p:commandButton ajax="false" id="btnCancelar"
+						action="#{SolicitarParticipacaoMBController.cancelarSolicitacao()}" immediate="true"
+						value="Cancelar" />
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:decorate>
+</html>

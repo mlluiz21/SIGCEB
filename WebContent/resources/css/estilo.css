@@ -7,6 +7,11 @@ body {
 	background-image: url("/resources/imagens/imagemFundo.png");
 }
 
+h4{
+	color: red;
+	font-weight: bold;
+}
+
 footer {
 	background-color: navy; 
 	width: 100%; 

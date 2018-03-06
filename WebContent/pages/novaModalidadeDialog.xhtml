@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+		href="../resources/css/estilo.css" />
+
+	<title>Definições da Equipe</title>
+
+</h:head>
+
+<h:body styleClass="body">
+
+	<h:form id="formNovaModalidade">
+
+<!--  		<p:dialog header="Adicionar Nova Modalidade"
+			widgetVar="edicaoAdicionarNovaModalidadeDialog"
+			id="adicionarNovaModalidade-Dialog" resizable="false" modal="true"
+			closeOnEscape="true" appendTo="@(body)">
+-->
+			<p:panelGrid columns="2" style="text-align:left; margin: 0 auto">
+
+				<p:selectOneMenu size="15" id="AdicionarNovaModalidade"
+					value="#{TipoModalidadeMBController.modalidade.modalidade}"
+					required="true"
+					requiredMessage="O Campo Grau de Escolaridade é obrigatório.">
+
+					<f:selectItem itemLabel="Selecione..." />
+					<f:selectItems itemLabel="#{tipoModalidade.descricao}"
+						var="tipoModalidade" itemValue="#{tipoModalidade}"
+						value="#{TipoModalidadeMBController.tipoModalidade}" />
+
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+
+			<h:panelGroup layout="block" style="text-align: center">
+
+				<p:commandButton ajax="false" id="btnSalvar" process="@this"
+					update="listDeModalidades"
+					action="#{TipoModalidadeMBController.salvarAdicionarModalidade()}"
+					value="Salvar" />
+				<p:commandButton ajax="false" id="btnCancelar"
+					action="#{TipoModalidadeMBController.cancelarAdicionarModalidade()}"
+					immediate="true" value="Cancelar" />
+
+			</h:panelGroup>
+
+	<!--  </p:dialog> -->
+	</h:form>
+</h:body>
+</html>

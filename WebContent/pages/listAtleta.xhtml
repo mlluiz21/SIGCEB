@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/pages/pagesTemplate/templateSistema.xhtml">
+
+		<ui:define name="conteudoPrincipal">
+
+			<p:dataTable id="listAtletas" value="#{AtletaMBController}"
+				var="atletas" emptyMessage="Nenhum atleta cadastado." rows="10"
+				paginator="true" paginatorPosition="bottom">
+
+				<f:facet name="header">
+		            <h3>Lista de Atletas</h3>
+		        </f:facet>
+
+				<p:column headerText="Nome Completo"
+					sortBy="#{AtletaMBController.pessoa.nomeCompleto}" >
+					<h:outputText value="#{AtletaMBController.pessoa.nomeCompleto}" />
+				</p:column>
+
+				<p:column headerText="Posição em Campo"
+					sortBy="#{AtletaMBController.atleta.posicaoEmCampo}" >
+					<h:outputText value="#{AtletaMBController.atleta.posicaoEmCampo}" />
+				</p:column>
+
+				<p:column headerText="Status do Atleta"
+					sortBy="#{AtletaMBController.atleta.posicaoEmCampo}" >
+					<h:outputText value="#{AtletaMBController.atleta.posicaoEmCampo}" />
+				</p:column>
+
+				<p:column headerText="Data de Nascimento"
+					sortBy="#{AtletaMBController.pessoa.dataDeNascimento}" >
+					<h:outputText value="#{AtletaMBController.pessoa.dataDeNascimento}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{AtletaMBController.pessoa.email}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{AtletaMBController.pessoa.telefone}" />
+				</p:column>
+
+				<p:column headerText="Bairro"
+					sortBy="#{AtletaMBController.pessoa.endereco.bairro}" width="">
+					<h:outputText value="#{AtletaMBController.pessoa.endereco.bairro}" />
+				</p:column>
+
+				<p:column headerText="Cidade"
+					sortBy="#{AtletaMBController.pessoa.endereco.cidade}" width="">
+					<h:outputText value="#{AtletaMBController.pessoa.endereco.cidade}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</ui:define>
+	</ui:decorate>
+</ui:composition>

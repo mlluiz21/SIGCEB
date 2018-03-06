@@ -10,7 +10,7 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css"
-		href="../../resources/css/estilo.css" />
+		href="../resources/css/estilo.css" />
 
 	<title>Sistema CEB</title>
 
@@ -20,32 +20,39 @@
 
 	<p:layout fullPage="true">
 
-		<p:layoutUnit position="north" size="150" collapsible="true" >
+		<p:layoutUnit position="north" size="150" collapsible="true">
 
-			<p:megaMenu style="margin-top:75px; font-size: 15px">
-			
-				<p:menuitem value="Páginal Inicial" url="/pages/site/home.xhtml" icon="ui-icon-home" />
+			<h:graphicImage url="../resources/imagens/cabecalhoSite.png" width="90%"
+				height="55%"/>
 
-				<p:menuitem value="Campeonatos" url="/pages/site/listCompeticao.xhtml" icon="ui-icon-document" />
+			<p:megaMenu style=" font-size: 15px">
 
-				<p:menuitem value="Cadastre-se" url="/pages/organizador/fazerCadastro.xhtml" icon="ui-icon-pencil" />
+				<p:menuitem value="Páginal Inicial" url="/pages/home.jsf"
+					icon="ui-icon-home" />
 
-				<p:menuitem value="Solicitar Participação" url="/pages/solicitantes/enviarSolicitacao.xhtml" icon="ui-icon-pencil" />
-				
+				<p:menuitem value="Campeonatos" url="/pages/listCompeticaoHome.jsf"
+					icon="ui-icon-document" />
+
+				<p:menuitem value="Cadastre-se" url="/pages/fazerCadastro.jsf"
+					icon="ui-icon-pencil" />
+
+				<p:menuitem value="Solicitar Participação"
+					url="/pages/enviarSolicitacao.jsf" icon="ui-icon-pencil" />
+
 				<p:menuitem value="SIGCEB" url="#" icon="ui-icon-contact" />
 
-				<p:menuitem value="Fazer Login" url="/pages/login2.xhtml"
+				<p:menuitem value="Fazer Login" url="/pages/login.jsf"
 					icon="ui-icon-refresh" />
-				
+
 			</p:megaMenu>
 
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
-        
-        <ui:insert name="conteudoPrincipalSite" />
-        
-  		</p:layoutUnit>
+
+			<ui:insert name="conteudoPrincipalSite" />
+
+		</p:layoutUnit>
 
 		<p:layoutUnit position="south" size="50" collapsible="true">
 
