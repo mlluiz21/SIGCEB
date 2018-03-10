@@ -116,6 +116,8 @@ public class LoginMB2 implements Serializable {
 
 	}
 
+	
+	//VERIFICAR NOVO PERFIL DE USUÁRIO NO SISTEMA ********************************************************************* //	
 	public String verificarTipoUsu() {
 		
 		String t = "";
@@ -142,12 +144,16 @@ public class LoginMB2 implements Serializable {
 		return link = t; 
 	}
 
+	//CRIAR NOVO PERFIL DE USUÁRIO NO SISTEMA ************************************************************************* //	
 	public String salvarCriarLogin() {
 
+		tipoUsu = this.usu.getTipoDeUsuario().getDescricao();
+		
 		if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))
 			this.getUsu().setId(null);
 		if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 			this.getPessoa().setId(null);
+		
 		usu.setPessoa(getPessoa());
 		this.usuDAO.salvar(this.usu);
 
@@ -203,13 +209,31 @@ public class LoginMB2 implements Serializable {
 				autenticado = autenticadoOk = true;
 				this.usu = loginBanco;
 			} else {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A senha Ã© invÃ¡lida.", null));
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A senha é inválida.", null));
 			}
 		}
 		if (autenticadoOk)
 			return "/pages/indexSistema.jsf?faces-redirect=true";
 		else
 			return "/pages/login.jsf?faces-redirect=true";
+	}
+	
+	public void enviarEmail(){
+		
+		@SuppressWarnings("unused")
+		String dispararEmail = "";
+		
+		Usuario loginBanco = usuDAO.lerPorLogin(this.login);
+		FacesContext contexto = FacesContext.getCurrentInstance();
+
+		if (loginBanco == null) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
+		}
+		else {
+			dispararEmail = this.pessoa.getEmail();
+		}
+
+		
 	}
 
 	
