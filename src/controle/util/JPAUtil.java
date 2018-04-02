@@ -58,18 +58,3 @@ public class JPAUtil {
 	}
 
 }
-
-/*
- * private static EntityManagerFactory criandoMinhaFabrica = null;
- * 
- * static { criandoMinhaFabrica =
- * Persistence.createEntityManagerFactory("ProjetoBancoSIGCEB"); }
- * 
- * public static EntityManager getEntityManager() { return
- * criandoMinhaFabrica.createEntityManager(); }
- * 
- * private JPAUtil() { super(); }
- * 
- * }
- * 
- */

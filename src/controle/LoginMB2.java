@@ -17,7 +17,7 @@ import modelo.dao.UsuarioDAO;
 import modelo.dominio.Pessoa;
 import modelo.dominio.Usuario;
 
-@ManagedBean(name = "loginMBController")
+@ManagedBean(name = "loginMBController2")
 @SessionScoped
 public class LoginMB2 implements Serializable {
 
@@ -102,16 +102,11 @@ public class LoginMB2 implements Serializable {
 
 		// Criando mapa de parametros string
 		Map<String, Object> criarLogin = new HashMap<>();
-
 		criarLogin.put("modal", true);
 		criarLogin.put("resizable", false);
 		criarLogin.put("contentHeight", 260);
 		criarLogin.put("contentWidth", 550);
 		criarLogin.put("closable", false);
-		/* criarLogin.put("centralizar na Tela", arg1) */
-
-		// Ã‰ uma API do Primefaces para chamar um arquivo como janela de
-		// diÃ¡logo
 		RequestContext.getCurrentInstance().openDialog("criarLoginDialog", criarLogin, null);
 
 	}
@@ -121,7 +116,6 @@ public class LoginMB2 implements Serializable {
 	public String verificarTipoUsu() {
 		
 		String t = "";
-
 		switch (tipoUsu) {
 
 		case "ATLETA":
@@ -140,10 +134,10 @@ public class LoginMB2 implements Serializable {
 			t = "/pages/editarResponsavelPorEquipeDialog.jsf?faces-redirect=true";
 			break;
 		}
-
 		return link = t; 
 	}
 
+	
 	//CRIAR NOVO PERFIL DE USUÁRIO NO SISTEMA ************************************************************************* //	
 	public String salvarCriarLogin() {
 
@@ -156,7 +150,6 @@ public class LoginMB2 implements Serializable {
 		
 		usu.setPessoa(getPessoa());
 		this.usuDAO.salvar(this.usu);
-
 		this.setPessoa(new Pessoa());
 		this.setUsu(new Usuario());
 		// Usuario objetoDoBancoTipoUsuario =
@@ -167,7 +160,6 @@ public class LoginMB2 implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg2);
 
 		return verificarTipoUsu();
-
 	}
 
 
@@ -181,10 +173,14 @@ public class LoginMB2 implements Serializable {
 
 		this.setLogin(null);
 		this.setSenha(null);
-
 		return "/pages/login.jsf";
 	}
 
+	
+	//RECUPARAR E ENVIAR SENHA POR EMAIL
+	public void enviarSenhaPorEmail(String de, String titulo, String msg, String para){
+		
+	}
 	
 	public String fazerCadastro() {
 
@@ -203,7 +199,6 @@ public class LoginMB2 implements Serializable {
 		if (loginBanco == null) {
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
 		}
-
 		else {
 			if (loginBanco.senhaCorreta(this.senha)) {
 				autenticado = autenticadoOk = true;
@@ -217,6 +212,7 @@ public class LoginMB2 implements Serializable {
 		else
 			return "/pages/login.jsf?faces-redirect=true";
 	}
+
 	
 	public void enviarEmail(){
 		
@@ -232,8 +228,6 @@ public class LoginMB2 implements Serializable {
 		else {
 			dispararEmail = this.pessoa.getEmail();
 		}
-
-		
 	}
 
 	
@@ -252,8 +246,6 @@ public class LoginMB2 implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.invalidate();
-
 		return "/pages/home.jsf?faces-redirect=true";
 	}
-
 }

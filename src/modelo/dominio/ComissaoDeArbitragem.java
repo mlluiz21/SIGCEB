@@ -8,31 +8,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import enuns.TipoDeJuiz;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tblComissaoDeArbitragem")
-public class ComissaoDeArbitragem implements Serializable{
+public class ComissaoDeArbitragem extends Pessoa implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(generator = "id_Arbitro", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "id_Arbitro", sequenceName = "seq_Arbitro", allocationSize = 1)
-	@Column(name = "idArbitro")
-	private Long id;
-
 	@ManyToOne
 	@JoinColumn(name = "idOrganizador")
 	private OrganizadorOuInstituicao organizadorOuInstituicao;
@@ -54,21 +43,12 @@ public class ComissaoDeArbitragem implements Serializable{
 		super();
 	}
 
-	public ComissaoDeArbitragem(Long id, TipoDeJuiz tipoDeJuiz, Date dataDeCadastro) {
+	public ComissaoDeArbitragem(TipoDeJuiz tipoDeJuiz, Date dataDeCadastro) {
 
 		super();
-		this.setId(id);
 		this.setDataDeCadastro(dataDeCadastro);
 		this.setTipoDeJuiz(tipoDeJuiz);
 		
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public OrganizadorOuInstituicao getOrganizadorInstituicao() {
@@ -105,7 +85,7 @@ public class ComissaoDeArbitragem implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ComissaoDeArbitragem [id=" + id + ", organizadorOuInstituicao=" + organizadorOuInstituicao + ", pessoa="
+		return "ComissaoDeArbitragem [organizadorOuInstituicao=" + organizadorOuInstituicao + ", pessoa="
 				+ pessoa + ", tipoDeJuiz=" + tipoDeJuiz + ", dataDeCadastro=" + dataDeCadastro + "]";
 	}
 	
