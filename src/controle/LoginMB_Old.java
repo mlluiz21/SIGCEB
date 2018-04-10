@@ -1,4 +1,5 @@
 package controle;
+/*package controle;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -17,9 +18,9 @@ import modelo.dao.UsuarioDAO;
 import modelo.dominio.Pessoa;
 import modelo.dominio.Usuario;
 
-@ManagedBean(name = "loginMBController2")
+@ManagedBean(name = "loginMBController")
 @SessionScoped
-public class LoginMB2 implements Serializable {
+public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private boolean autenticado = false;
@@ -31,14 +32,12 @@ public class LoginMB2 implements Serializable {
 	private String link = "";
 	private Pessoa pessoa;
 
-
-	
-	public UsuarioDAO getUsuDAO() {
-		return usuDAO;
+	public Usuario getUsu() {
+		return usu;
 	}
 
-	public void setUsuDAO(UsuarioDAO usuDAO) {
-		this.usuDAO = usuDAO;
+	public void setUsu(Usuario usu) {
+		this.usu = usu;
 	}
 
 	public String getLogin() {
@@ -56,22 +55,13 @@ public class LoginMB2 implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public Usuario getUsu() {
-		return usu;
-	}
-
-	public void setUsu(Usuario usu) {
-		this.usu = usu;
-	}
-
-	public String getTipoUsu() {
-		return tipoUsu;
-	}
-
-	public void setTipoUsu(String tipoUsu) {
-		this.tipoUsu = tipoUsu;
-	}
+	
+	
+	 * public String getTipoUsuario() { return tipoUsuario; }
+	 * 
+	 * public void setTipoUsuario(String tipoUsuario) { this.tipoUsuario =
+	 * tipoUsuario; }
+	 
 
 	public String getLink() {
 		return link;
@@ -81,41 +71,32 @@ public class LoginMB2 implements Serializable {
 		this.link = link;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public void setAutenticado(boolean autenticado) {
-		this.autenticado = autenticado;
-	}
-
 	public TipoDeUsuario[] getTipoDeUsuario() {
 		return TipoDeUsuario.values();
 	}
 
-	
 	public void abrirDialogCriarLogin() {
 
 		// Criando mapa de parametros string
 		Map<String, Object> criarLogin = new HashMap<>();
+
 		criarLogin.put("modal", true);
 		criarLogin.put("resizable", false);
 		criarLogin.put("contentHeight", 260);
 		criarLogin.put("contentWidth", 550);
 		criarLogin.put("closable", false);
+		 criarLogin.put("centralizar na Tela", arg1) 
+
+		// Ã‰ uma API do Primefaces para chamar um arquivo como janela de
+		// diÃ¡logo
 		RequestContext.getCurrentInstance().openDialog("criarLoginDialog", criarLogin, null);
 
 	}
 
-	
-	//VERIFICAR NOVO PERFIL DE USUÁRIO NO SISTEMA ********************************************************************* //	
 	public String verificarTipoUsu() {
-		
+
 		String t = "";
+		
 		switch (tipoUsu) {
 
 		case "ATLETA":
@@ -134,22 +115,20 @@ public class LoginMB2 implements Serializable {
 			t = "/pages/editarResponsavelPorEquipeDialog.jsf?faces-redirect=true";
 			break;
 		}
+
 		return link = t; 
 	}
 
-	
-	//CRIAR NOVO PERFIL DE USUÁRIO NO SISTEMA ************************************************************************* //	
 	public String salvarCriarLogin() {
 
 		tipoUsu = this.usu.getTipoDeUsuario().getDescricao();
 		
 		if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))
 			this.getUsu().setId(null);
-		if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
-			this.getPessoa().setId(null);
 		
 		usu.setPessoa(getPessoa());
 		this.usuDAO.salvar(this.usu);
+
 		this.setPessoa(new Pessoa());
 		this.setUsu(new Usuario());
 		// Usuario objetoDoBancoTipoUsuario =
@@ -160,6 +139,52 @@ public class LoginMB2 implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg2);
 
 		return verificarTipoUsu();
+
+	}
+
+	 public String salvarCriarLogin2() {
+
+		tipoUsu = this.usu.getTipoDeUsuario().getDescricao();
+
+		if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))
+			this.getUsu().setId(null);
+		usu.setPessoa(getPessoa());
+		this.usuDAO.salvar(this.usu);
+		// Usuario objetoDoBancoTipoUsuario =
+		// this.usuDAO.lerPorId(getTipoDeUsuario());
+
+		FacesMessage msg2 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro do Login realizado com sucesso!",
+				null);
+		FacesContext.getCurrentInstance().addMessage(null, msg2);
+
+		tipoUsu = (this.usu.getTipoDeUsuario().getDescricao());
+
+		if (this.tipoUsu.equals("Atleta")) {
+			return "/pages/editarAtletaDialog.jsf?faces-redirect=true";
+		}
+
+		else if (this.tipoUsu.equals("Ã�rbitro")) {
+			return "/pages/editarArbitroDialog.jsf?faces-redirect=true";
+		}
+
+		else if (this.tipoUsu.equals("Organizador ou InstituiÃ§Ã£o")) {
+			return "/pages/editarOrganizadorOuInstituicaoDialog.jsf?faces-redirect=true";
+		}
+
+		else if (this.tipoUsu.equals("ResponsÃ¡vel por Equipe")) {
+			return "/pages/editarResponsavelPorEquipeDialog.jsf?faces-redirect=true";
+		}
+
+		else {
+			FacesMessage msg3 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Deve-se escolher um Tipo de UsuÃ¡rio!",
+					null);
+			FacesContext.getCurrentInstance().addMessage(null, msg3);
+		}
+
+		this.setUsu(new Usuario());
+		// return "/pages/indexSistema.jsf?faces-redirect=true";
+		return "/pages/editarResponsavelPorEquipeDialog.jsf?faces-redirect=true";
+
 	}
 
 
@@ -168,26 +193,42 @@ public class LoginMB2 implements Serializable {
 		return "/pages/recuperarSenha.jsf";
 	}
 
-	
 	public String cancelarRecuperarSenha() {
 
 		this.setLogin(null);
 		this.setSenha(null);
+
 		return "/pages/login.jsf";
 	}
 
-	
-	//RECUPARAR E ENVIAR SENHA POR EMAIL
-	public void enviarSenhaPorEmail(String de, String titulo, String msg, String para){
-		
-	}
-	
 	public String fazerCadastro() {
 
 		return "/pages/fazerCadastro.jsf";
 	}
-
 	
+	
+	 * public String acaoSalvar() { // Deve limpar o ID com valor zero, pois o
+	 * JSF sempre converte o campo vazio para um LONG = 0.
+	 * 
+	 * if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue()
+	 * == 0)) this.getUsu().setId(null);
+	 * 
+	 * // Se o usuÃƒÂ¡rio nÃƒÂ£o tiver ID, deve testar se existe o mesmo no banco
+	 * 
+	 * if (this.getUsu().getId() == null) { Usuario objetoDoBanco =
+	 * this.usuDAO.lerPorLogin(this.getUsu().getLogin());
+	 * 
+	 * if (objetoDoBanco != null) { JSFUtil.
+	 * retornarMensagemErro("Outro usuÃƒÂ¡rio com o mesmo login jÃƒÂ¡ existe no sistema."
+	 * , null, null); return null; // volta p/mesma pÃƒÂ¡gina } }
+	 * 
+	 * this.usuDAO.salvar(this.getUsu()); // limpa a lista this.usu = null;
+	 * 
+	 * // limpar o objeto da pÃƒÂ¡gina this.setUsu(new Usuario());
+	 * 
+	 * return "usuarioListar"; }
+	 
+
 	public String autenticarUsuario() {
 
 		boolean autenticadoOk = false;
@@ -199,12 +240,13 @@ public class LoginMB2 implements Serializable {
 		if (loginBanco == null) {
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
 		}
+
 		else {
 			if (loginBanco.senhaCorreta(this.senha)) {
 				autenticado = autenticadoOk = true;
 				this.usu = loginBanco;
 			} else {
-				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A senha é inválida.", null));
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A senha Ã© invÃ¡lida.", null));
 			}
 		}
 		if (autenticadoOk)
@@ -213,29 +255,10 @@ public class LoginMB2 implements Serializable {
 			return "/pages/login.jsf?faces-redirect=true";
 	}
 
-	
-	public void enviarEmail(){
-		
-		@SuppressWarnings("unused")
-		String dispararEmail = "";
-		
-		Usuario loginBanco = usuDAO.lerPorLogin(this.login);
-		FacesContext contexto = FacesContext.getCurrentInstance();
-
-		if (loginBanco == null) {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
-		}
-		else {
-			dispararEmail = this.pessoa.getEmail();
-		}
-	}
-
-	
 	public Boolean isAutenticado() {
 		return this.autenticado;
 	}
 
-	
 	public String logOut() {
 
 		this.usu = new Usuario();
@@ -246,6 +269,25 @@ public class LoginMB2 implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.invalidate();
+
 		return "/pages/home.jsf?faces-redirect=true";
 	}
+
+	public String getTipoUsu() {
+		return tipoUsu;
+	}
+
+	public void setTipoUsu(String tipoUsu) {
+		this.tipoUsu = tipoUsu;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 }
+*/

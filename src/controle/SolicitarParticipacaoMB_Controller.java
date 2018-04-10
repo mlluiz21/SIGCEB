@@ -45,13 +45,15 @@ public class SolicitarParticipacaoMB_Controller implements Serializable {
 
 	public String enviarSolicitacao() {
 		
+		try {
+			
 		//LER USUÃ�RIO CADASTRADO NO POSTGRES
 		Usuario loginBanco = usuDAO.lerPorLogin(this.getSolicitante().getLoginDoOrganizador());	
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		
 		if (loginBanco == null) {			
 			contexto.addMessage(null, new FacesMessage(
-					FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));		
+					FacesMessage.SEVERITY_ERROR, "O usuário nao existe.", null));		
 		}
 		else {
 			
@@ -64,12 +66,19 @@ public class SolicitarParticipacaoMB_Controller implements Serializable {
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação enviada com sucesso!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}		
+		}
+		
+		} catch (Exception e) {
+			
+			System.out.println(e);
+			
+		}
 		
 		return "/pages/home.jsf?faces-redirect=true";
 		
 	}
 
+	
 	public String cancelarSolicitacao() {
 
 		this.setSolicitante(new Solicitante());

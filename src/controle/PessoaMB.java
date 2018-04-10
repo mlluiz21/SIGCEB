@@ -148,6 +148,7 @@ public class PessoaMB implements Serializable{
 		// VAZIO PARA UM LONG = 0.
 		if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 			this.getPessoa().setId(null);
+		this.pesDAO.salvar(this.pessoa);
 		this.pessoas = null; // LIMPA A LISTA
 		this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA
 
