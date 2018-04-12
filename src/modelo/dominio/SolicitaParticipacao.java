@@ -1,3 +1,4 @@
+package modelo.dominio;
 /*package modelo.dominio;
 
 import java.io.Serializable;

@@ -10,10 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,10 +26,17 @@ import enuns.PosicaoEmCampo;
 import enuns.StatusParaEquipe;
 import enuns.StatusParaJogo;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "tblAtleta")
-public class Atleta extends Pessoa implements Serializable {
+public class Atleta implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(generator = "id_Atleta", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "id_Atleta", sequenceName = "seq_Atleta", allocationSize = 1)
+	@Column(name = "idAtleta")
+	private Long id;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn(name = "idPessoa", referencedColumnName = "idPessoa")
@@ -55,9 +66,10 @@ public class Atleta extends Pessoa implements Serializable {
 	@Column(length = 40, nullable = false)	
 	private StatusParaEquipe statusParaEquipe;
 
-	public Atleta(Pessoa pessoa, ResponsavelPorEquipeTecnico responsavelPorEquipeTecnico,
+	public Atleta(Long id, Pessoa pessoa, ResponsavelPorEquipeTecnico responsavelPorEquipeTecnico,
 			List<Periodo> listCompeticao, PosicaoEmCampo posicaoEmCampo, Date dataDeCadastro, StatusParaJogo statusParaJogo, StatusParaEquipe statusParaEquipe) {
 		super();
+		this.id = id;
 		this.pessoa = pessoa;
 		this.responsavelPorEquipeTecnico = responsavelPorEquipeTecnico;
 		this.listCompeticao = listCompeticao;
@@ -69,6 +81,14 @@ public class Atleta extends Pessoa implements Serializable {
 
 	public Atleta() {
 		super();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Pessoa getPessoa() {
@@ -144,7 +164,7 @@ public class Atleta extends Pessoa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Atleta [pessoa=" + pessoa + ", responsavelPorEquipeTecnico="
+		return "Atleta [id=" + id + ", pessoa=" + pessoa + ", responsavelPorEquipeTecnico="
 				+ responsavelPorEquipeTecnico + ", listCompeticao=" + listCompeticao + ", posicaoEmCampo="
 				+ posicaoEmCampo + ", dataDeCadastro=" + dataDeCadastro + ", statusParaJogo=" + statusParaJogo
 				+ ", statusParaEquipe=" + statusParaEquipe + "]";

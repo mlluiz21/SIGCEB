@@ -8,17 +8,29 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@SuppressWarnings("serial")
 @Entity
 @Table (name = "tblResponsavelPorEquipe")
-public class ResponsavelPorEquipeTecnico extends Pessoa implements Serializable{
+public class ResponsavelPorEquipeTecnico implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue (generator = "id_Resp_Equipe", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator (name = "id_Resp_Equipe", sequenceName = "seq_Resp_Equipe", allocationSize = 1)
+	@Column (name = "idResp_Equipe")
+	private Long id;
+
 	
 	@OneToOne (cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn (name = "idPessoa", referencedColumnName = "idPessoa")
@@ -40,14 +52,23 @@ public class ResponsavelPorEquipeTecnico extends Pessoa implements Serializable{
 		super();
 	}
 	
-	public ResponsavelPorEquipeTecnico(String nomeDaEquipe, Date dataDeCadastro, Pessoa pessoa){
+	public ResponsavelPorEquipeTecnico(Long id, String nomeDaEquipe, Date dataDeCadastro, Pessoa pessoa){
 	
 		super();
+		this.setId(id);
 		this.setNomeDaEquipe(nomeDaEquipe);
 		this.setDataDeCadastro(dataDeCadastro);
 		this.setPessoa(pessoa);
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+		
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -82,7 +103,7 @@ public class ResponsavelPorEquipeTecnico extends Pessoa implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ResponsavelPorEquipeTecnico [pessoa=" + pessoa + ", atleta=" + atleta + ", nomeDaEquipe="
+		return "ResponsavelPorEquipeTecnico [id=" + id + ", pessoa=" + pessoa + ", atleta=" + atleta + ", nomeDaEquipe="
 				+ nomeDaEquipe + ", dataDeCadastro=" + dataDeCadastro + "]";
 	}
 

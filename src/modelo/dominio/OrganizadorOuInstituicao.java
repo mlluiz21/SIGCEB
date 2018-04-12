@@ -8,19 +8,30 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@SuppressWarnings("serial")
 @Entity
 @Table (name = "tblOrganizadorOuInstituicao")
-public class OrganizadorOuInstituicao extends Pessoa implements Serializable{
+public class OrganizadorOuInstituicao implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue (generator = "id_Organizador", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator (name = "id_Organizador", sequenceName = "seq_Organizador", allocationSize = 1)
+	@Column (name = "idOrganizador")
+	private Long id;
+	
+
 	@OneToOne (cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn (name = "idPessoa", referencedColumnName = "idPessoa")
 	private Pessoa pessoa;
@@ -55,15 +66,25 @@ public class OrganizadorOuInstituicao extends Pessoa implements Serializable{
 		super();
 	}
 	
-	public OrganizadorOuInstituicao(String nomeDoCampoOuQuadra, String localDoEvento, Date dataDeCadastro, Pessoa pessoa){
+	public OrganizadorOuInstituicao(Long id, String nomeDoCampoOuQuadra, String localDoEvento, Date dataDeCadastro, Pessoa pessoa){
 		
 		super();
+		this.setId(id);
 		this.setDataDeCadastro(dataDeCadastro);
 		this.setLocalEvento(localDoEvento);
 		this.setNomeDoCampoOuQuadra(nomeDoCampoOuQuadra);
 		this.setPessoa(pessoa);
 	}
 		
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -122,7 +143,7 @@ public class OrganizadorOuInstituicao extends Pessoa implements Serializable{
 
 	@Override
 	public String toString() {
-		return "OrganizadorOuInstituicao [pessoa=" + pessoa + ", comissaoDeArbitragem="
+		return "OrganizadorOuInstituicao [id=" + id + ", pessoa=" + pessoa + ", comissaoDeArbitragem="
 				+ comissaoDeArbitragem + ", listCriarEventos=" + listCriarEventos + ", solicitantes=" + solicitantes
 				+ ", dataDeCadastro=" + dataDeCadastro + ", localEvento=" + localEvento + ", nomeDoCampoOuQuadra="
 				+ nomeDoCampoOuQuadra + "]";
