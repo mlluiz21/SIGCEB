@@ -158,7 +158,6 @@ public class LoginMB implements Serializable {
 /*			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 				this.getPessoa().setId(null);
 */
-			usu.setPessoa(getPessoa());
 			this.usuDAO.salvar(this.usu);
 
 			this.setPessoa(new Pessoa());

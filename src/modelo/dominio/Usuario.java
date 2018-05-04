@@ -2,7 +2,6 @@ package modelo.dominio;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,12 +9,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import enuns.TipoDeUsuario;
-import modelo.dominio.Pessoa;
 
 @Entity
 @Table (name = "tblUsuario")
@@ -29,8 +28,9 @@ public class Usuario implements Serializable{
 	@Column (name = "idUsuario")
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Pessoa pessoa;
+	@OneToOne(mappedBy="perfil")
+	@JoinColumn(name="idPessoa", nullable=true)
+	private Pessoa pessoa;	
 				
 	@Column (length = 35, unique = true)
 	private String login;
@@ -109,7 +109,7 @@ public class Usuario implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", pessoa=" + pessoa + ", login=" + login + ", senha=" + senha + ", tipoDeUsuario="
+		return "Usuario [id=" + id + /*", pessoa=" + pessoa + */", login=" + login + ", senha=" + senha + ", tipoDeUsuario="
 				+ tipoDeUsuario + "]";
 	}
 
@@ -119,7 +119,7 @@ public class Usuario implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		/*result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());*/
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		result = prime * result + ((tipoDeUsuario == null) ? 0 : tipoDeUsuario.hashCode());
 		return result;
@@ -144,11 +144,11 @@ public class Usuario implements Serializable{
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
-		if (pessoa == null) {
+		/*if (pessoa == null) {
 			if (other.pessoa != null)
 				return false;
 		} else if (!pessoa.equals(other.pessoa))
-			return false;
+			return false;*/
 		if (senha == null) {
 			if (other.senha != null)
 				return false;

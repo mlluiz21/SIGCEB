@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import controle.util.JSFUtil;
 import modelo.dao.SolicitarParticipacaoDAO;
 import modelo.dao.UsuarioDAO;
 import modelo.dominio.Solicitante;
@@ -61,11 +62,16 @@ public class SolicitarParticipacaoMB_Controller implements Serializable {
 				this.getSolicitante().setId(null);
 			
 			this.solicitDAO.salvar(this.getSolicitante());
+			
+			FacesMessage msg = new FacesMessage("Solicitação enviada com sucesso!");			
+			FacesContext contexto1 = FacesContext.getCurrentInstance();		
+			contexto1.addMessage(null, msg);
+			
 			this.solicitante = null;
 			this.setSolicitante(new Solicitante());
 			
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação enviada com sucesso!", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			/*FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação enviada com sucesso!", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);*/
 		}
 		
 		} catch (Exception e) {
@@ -73,11 +79,38 @@ public class SolicitarParticipacaoMB_Controller implements Serializable {
 			System.out.println(e);
 			
 		}
-		
+				
 		return "/pages/home.jsf?faces-redirect=true";
 		
 	}
 
+	public String excluirSolicitacao(){
+	
+		try {
+			
+			Long id = JSFUtil.getParametroLong("idSolicitante");
+			Solicitante solicitaBanco = this.solicitDAO.lerPorId(id);
+			this.solicitDAO.excluir(solicitaBanco);
+			
+			//this.setListSolicitacoes(new Solicitante());
+			
+			this.solicitante = null;
+			
+			FacesContext contexto = FacesContext.getCurrentInstance();
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"O Solicitante foi excluído com sucesso.", null));
+			
+		} catch (Exception e) {
+
+			System.out.println(e);
+		}
+
+		// executa a ação listar e retorna a sua página
+		return "listSolicitacao.jsf";
+		
+		//this.listSolicitacoes();
+		
+	}
 	
 	public String cancelarSolicitacao() {
 

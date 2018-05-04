@@ -3,6 +3,7 @@ package modelo.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,6 +35,9 @@ public class Pessoa implements Serializable {
 	@SequenceGenerator(name = "id_Pessoa", sequenceName = "seq_Pessoa", allocationSize = 1)
 	@Column(name = "idPessoa")
 	private Long id;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Usuario perfil;
 
 	@Size(min = 8, max = 70)
 	@Column(length = 70, nullable = false)
@@ -85,12 +90,13 @@ public class Pessoa implements Serializable {
 		super();
 	}
 
-	public Pessoa(Long id, String nomeCompleto, String cpf, String rg, Date dataDeNascimento, Sexo sexo,
+	public Pessoa(Long id, Usuario perfil, String nomeCompleto, String cpf, String rg, Date dataDeNascimento, Sexo sexo,
 			String nomeDaMae, String nomeDoPai, EstadoCivil estadoCivil, TipoSanguineo tipoSanguineo,
 			GrauDeEscolaridade grauDeEscolaridade, String email, String celular, String telefone, Endereco endereco) {
 
 		super();
 		this.setId(id);
+		this.setPerfil(this.getPerfil());
 		this.setNomeCompleto(nomeCompleto);
 		this.setCpf(cpf);
 		this.setRg(rg);
@@ -114,6 +120,14 @@ public class Pessoa implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Usuario getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Usuario perfil) {
+		this.perfil = perfil;
 	}
 
 	public String getNomeCompleto() {

@@ -1,5 +1,7 @@
 package testes;
 
+import java.util.Date;
+
 import modelo.dao.CompeticaoDAO;
 import modelo.dominio.Competicao;
 
@@ -9,7 +11,8 @@ public class TesteUniCompeticao {
 		
 		Competicao compet = new Competicao();
 		
-		compet.setDataDeInicio(null);
+		compet.setDataDeCadastro(Date());
+		compet.setDataDeInicio(Date());
 		compet.setDuracao(null);
 		compet.setNomeDaCompeticao("Teste Compeonato");
 		compet.setQuantidadeDeEquipes(1);
@@ -22,5 +25,10 @@ public class TesteUniCompeticao {
 		
 		System.out.println("Competição " + compet.getNomeDaCompeticao() + "com sucesso");
 		
+	}
+
+	private static Date Date() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

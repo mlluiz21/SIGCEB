@@ -13,9 +13,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -34,6 +38,9 @@ public class Competicao implements Serializable{
 	@Column (name = "idCompeticao")
 	private Long id;
 	
+	@ManyToOne
+	@JoinColumn (name = "idOrganizador", referencedColumnName = "idOrganizador", nullable = false)
+	private OrganizadorOuInstituicao organizadorOuInstituicao;
 	
 	@OneToMany (mappedBy = "competicao", targetEntity = OrganizarRodadas.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrganizarRodadas> listOrganizarRodadas;
@@ -41,9 +48,17 @@ public class Competicao implements Serializable{
 	@OneToMany (mappedBy = "competicao", targetEntity = AdicionarEquipe.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AdicionarEquipe> listAdicionarEquipe;
 		
+	@Temporal(TemporalType.DATE)
+	@Column
+	private Date dataDeCadastro = Date();
+	
+	private Date Date() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Column (length = 60, nullable = false)
-	@NotEmpty(message = "")
+	@NotEmpty(message = "Obrigatório definir nome da Competição")
 	private String nomeDaCompeticao;
 	
 	@Enumerated(EnumType.STRING)
@@ -153,6 +168,22 @@ public class Competicao implements Serializable{
 
 	public void setRegrasDaCompeticao(String regrasDaCompeticao) {
 		this.regrasDaCompeticao = regrasDaCompeticao;
+	}
+
+	public OrganizadorOuInstituicao getOrganizadorOuInstituicao() {
+		return organizadorOuInstituicao;
+	}
+
+	public void setOrganizadorOuInstituicao(OrganizadorOuInstituicao organizadorOuInstituicao) {
+		this.organizadorOuInstituicao = organizadorOuInstituicao;
+	}
+
+	public Date getDataDeCadastro() {
+		return dataDeCadastro;
+	}
+
+	public void setDataDeCadastro(Date dataDeCadastro) {
+		this.dataDeCadastro = dataDeCadastro;
 	}
 
 	@Override

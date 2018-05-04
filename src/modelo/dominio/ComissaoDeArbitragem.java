@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,10 +31,6 @@ public class ComissaoDeArbitragem implements Serializable{
 	@SequenceGenerator(name = "id_Arbitro", sequenceName = "seq_Arbitro", allocationSize = 1)
 	@Column(name = "idArbitro")
 	private Long id;
-
-	@ManyToOne
-	@JoinColumn(name = "idOrganizador")
-	private OrganizadorOuInstituicao organizadorOuInstituicao;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn(name = "idPessoa", referencedColumnName = "idPessoa")
@@ -70,15 +65,7 @@ public class ComissaoDeArbitragem implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public OrganizadorOuInstituicao getOrganizadorInstituicao() {
-		return organizadorOuInstituicao;
-	}
-
-	public void setOrganizadorInstituicao(OrganizadorOuInstituicao organizadorOuInstituicao) {
-		this.organizadorOuInstituicao = organizadorOuInstituicao;
-	}
-
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -105,7 +92,7 @@ public class ComissaoDeArbitragem implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ComissaoDeArbitragem [id=" + id + ", organizadorOuInstituicao=" + organizadorOuInstituicao + ", pessoa="
+		return "ComissaoDeArbitragem [id=" + id + ", pessoa="
 				+ pessoa + ", tipoDeJuiz=" + tipoDeJuiz + ", dataDeCadastro=" + dataDeCadastro + "]";
 	}
 	

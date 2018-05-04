@@ -35,13 +35,9 @@ public class OrganizadorOuInstituicao implements Serializable{
 	@OneToOne (cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn (name = "idPessoa", referencedColumnName = "idPessoa")
 	private Pessoa pessoa;
-	
-	
-	@OneToMany (mappedBy = "organizadorOuInstituicao", targetEntity = ComissaoDeArbitragem.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List <ComissaoDeArbitragem> comissaoDeArbitragem;
-		
-	@OneToMany (mappedBy = "organizadorOuInstituicao", targetEntity = CriarEvento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<CriarEvento> listCriarEventos;
+				
+	@OneToMany (mappedBy = "organizadorOuInstituicao", targetEntity = Competicao.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List <Competicao> listCompeticao;
 	
 	@OneToMany (mappedBy = "organizadorOuInstituicao", targetEntity = Solicitante.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Solicitante> solicitantes;
@@ -93,22 +89,14 @@ public class OrganizadorOuInstituicao implements Serializable{
 		this.pessoa = pessoa;
 	}
 	
-	public List<ComissaoDeArbitragem> getComissaoDeArbitragem() {
-		return comissaoDeArbitragem;
+	public List<Competicao> getListCompeticao() {
+		return listCompeticao;
 	}
 
-	public void setComissaoDeArbitragem(List<ComissaoDeArbitragem> comissaoDeArbitragem) {
-		this.comissaoDeArbitragem = comissaoDeArbitragem;
-	}
-				
-	public List<CriarEvento> getListCriarEventos() {
-		return listCriarEventos;
+	public void setListCompeticao(List<Competicao> listCompeticao) {
+		this.listCompeticao = listCompeticao;
 	}
 
-	public void setListCriarEventos(List<CriarEvento> listCriarEventos) {
-		this.listCriarEventos = listCriarEventos;
-	}
-	
 	public List<Solicitante> getSolicitantes() {
 		return solicitantes;
 	}
@@ -143,10 +131,8 @@ public class OrganizadorOuInstituicao implements Serializable{
 
 	@Override
 	public String toString() {
-		return "OrganizadorOuInstituicao [id=" + id + ", pessoa=" + pessoa + ", comissaoDeArbitragem="
-				+ comissaoDeArbitragem + ", listCriarEventos=" + listCriarEventos + ", solicitantes=" + solicitantes
-				+ ", dataDeCadastro=" + dataDeCadastro + ", localEvento=" + localEvento + ", nomeDoCampoOuQuadra="
-				+ nomeDoCampoOuQuadra + "]";
+		return "OrganizadorOuInstituicao [id=" + id + ", dataDeCadastro=" + dataDeCadastro + ", localEvento="
+				+ localEvento + ", nomeDoCampoOuQuadra=" + nomeDoCampoOuQuadra + "]";
 	}
 
 		

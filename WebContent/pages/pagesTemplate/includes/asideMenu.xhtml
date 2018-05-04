@@ -222,13 +222,15 @@
 					</h:panelGroup>
 				</p:tab>
 
+
+
 				<p:tab title="Alterar senha">
 
 					<p:panelGrid columns="2" style="margin: 0 auto">
 
-						<h:outputText value="Login:" for="login" />
+						<h:outputLabel value="Login:" for="login" />
 
-						<p:inputText id="login" value="#{loginMBController.login}" />
+						<p:outputLabel id="login" value="#{loginMBController.login}" />
 
 						<h:outputText value="Senha:" for="senha" />
 
