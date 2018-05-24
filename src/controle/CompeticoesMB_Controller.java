@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import enuns.Duracao;
+import enuns.TipoDeCompeticao;
 import modelo.dao.CompeticaoDAO;
 import modelo.dominio.Competicao;
 
 
 @ManagedBean(name = "CompeticoesMB_Controller")
-@RequestScoped
+@SessionScoped
 public class CompeticoesMB_Controller implements Serializable{
 		
 	private static final long serialVersionUID = 1L;
@@ -40,6 +41,10 @@ public class CompeticoesMB_Controller implements Serializable{
 
 	public void setListCompeticoes(List<Competicao> listCompeticoes) {
 		this.listCompeticoes = listCompeticoes;
+	}
+	
+	public TipoDeCompeticao[] getTipoDeCompeticao(){
+		return TipoDeCompeticao.values();
 	}
 		
 	public Duracao[] getDuracao(){

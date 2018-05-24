@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.context.RequestContext;
 
@@ -15,7 +15,7 @@ import modelo.dao.TipoDeModalidadeDAO;
 import modelo.dominio.TipoDeModalidade;
 
 @ManagedBean(name = "TipoModalidadeMBController")
-@RequestScoped
+@SessionScoped
 public class TipoModalidadeMB_Controller implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

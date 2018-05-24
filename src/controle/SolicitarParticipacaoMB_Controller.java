@@ -60,7 +60,7 @@ public class SolicitarParticipacaoMB_Controller implements Serializable {
 			
 			if((this.getSolicitante().getId() != null) && (this.getSolicitante().getId().longValue() == 0))
 				this.getSolicitante().setId(null);
-			
+			//solicitante = setSolicitante(this.solicitante.getOrganizadorInstituicao());
 			this.solicitDAO.salvar(this.getSolicitante());
 			
 			FacesMessage msg = new FacesMessage("Solicitação enviada com sucesso!");			

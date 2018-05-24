@@ -17,7 +17,7 @@
 
 		<p:panelMenu style="width:100%">
 
-			<p:submenu label="Perfil" >
+			<p:submenu label="Perfil">
 
 				<p:menuitem value="Usuário: #{loginMBController.usu.login}" />
 
@@ -33,7 +33,7 @@
 			<p:submenu label="Cadastrar">
 
 				<p:menuitem value="Competição"
-					onclick="PF('edicaoCompeticaoDialog').show()" icon="ui-icon-disk" />
+					onclick="PF('novaCompeticaoDialog').show()" icon="ui-icon-disk" />
 
 				<p:menuitem value="Adicionar Modalidades" process="@this"
 					oncomplete="PF('novaModalidadeDialog').show()" icon="ui-icon-disk" />
@@ -170,7 +170,7 @@
 							requiredMessage="O Campo E-mail é obrigatório." />
 
 						<h:outputLabel value="Telefone" for="tel" />
-						<p:inputText id="tel"
+						<p:inputText id="tel" converter="tel-converter"
 							value="#{pessoaMBController.pessoa.telefone}" required="true"
 							requiredMessage="O Campo Telefone é obrigatório." />
 
@@ -267,6 +267,74 @@
 
 	<!--		 JANELA DE DIÁLOGO CADASTRAR NOVA COMPETIÇÃO 		-->
 
+	<p:dialog header="Nova Competição" widgetVar="novaCompeticaoDialog"
+		id="novaCompeticao-Dialog" resizable="false" modal="true"
+		closeOnEscape="true" appendTo="@(body)">
+
+		<h:form id="formCompeticao">
+			<p:panelGrid columns="2"
+				style="width:600; text-align:left; margin:0 auto">
+
+				<p:outputLabel value="Data de Cadastro" for="dataDeCadastro" />
+				<p:calendar id="dataDeCadastro" pattern="dd/MM/yyyy"
+					mask="99/99/9999"
+					value="#{CompeticoesMB_Controller.competicao.dataDeCadastro}" />
+
+
+				<h:outputLabel value="Tipo de Competição:" for="tipoDeCompeticao" />
+				<p:selectOneMenu size="8" id="tipoDeCompeticao"
+					value="#{CompeticoesMB_Controller.competicao.tipoDeCompeticao}">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemValue="#{tipoDeCompeticao}"
+						var="tipoDeCompeticao" itemLabel="#{tipoDeCompeticao.descricao}"
+						value="#{CompeticoesMB_Controller.tipoDeCompeticao}" />
+
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Data de Início" for="dataDeInicio" />
+				<p:calendar id="dataDeInicio" pattern="dd/MM/yyyy" mask="99/99/9999"
+					value="#{CompeticoesMB_Controller.competicao.dataDeInicio}" />
+
+
+				<p:outputLabel value="Nome da Competição" for="nomeDaCompeticao" />
+				<p:inputText id="nomeDaCompeticao" size="60"
+					value="#{CompeticoesMB_Controller.competicao.nomeDaCompeticao}" />
+
+
+				<p:outputLabel value="Duração" for="duracao" />
+				<p:selectOneMenu size="8" id="duracao"
+					value="#{CompeticoesMB_Controller.competicao.duracao}">
+
+					<f:selectItem itemLabel="-" />
+					<f:selectItems itemValue="#{duracao}" var="duracao"
+						itemLabel="#{duracao.descricao}"
+						value="#{CompeticoesMB_Controller.duracao}" />
+
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Quantidade de Equipes"
+					for="quantidadeDeEquipes" />
+				<p:inputText id="quantidadeDeEquipes" size="2"
+					value="#{CompeticoesMB_Controller.competicao.quantidadeDeEquipes}" />
+
+				<p:outputLabel value="Quantidade de Grupos" for="quantidadeDeGrupos" />
+				<p:inputText id="quantidadeDeGrupos" size="2"
+					value="#{CompeticoesMB_Controller.competicao.quantidadeDeGrupos}" />
+
+				<p:outputLabel value="Regras da Competição" for="regrasDaCompeticao" />
+				<p:inputTextarea id="regrasDaCompeticao"
+					value="#{CompeticoesMB_Controller.competicao.regrasDaCompeticao}" />
+
+			</p:panelGrid>
+
+			<p:commandButton value="Salvar"
+				action="#{CompeticoesMB_Controller.salvarCompeticao()}"
+				process="@form" update="@form" />
+
+		</h:form>
+
+	</p:dialog>
 
 
 
@@ -289,8 +357,7 @@
 				<p:outputLabel id="nomeDaEquipe"
 					value="#{ResponsavelPorEquipeMBController.responsavelPorEquipe.nomeDaEquipe}" />
 
-				<h:outputLabel value="1º Nome da Equipe:"
-					for="nomeFantasia" />
+				<h:outputLabel value="1º Nome da Equipe:" for="nomeFantasia" />
 				<p:outputLabel id="nomeFantasia"
 					value="#{EquipeMBController.equipe.nomeFantasia}" />
 
@@ -381,11 +448,11 @@
 
 			<h:panelGroup layout="block" style="text-align: center">
 
-				<p:commandButton ajax="false" id="btnSalvar" process="@form"
-					update="@listDeModalidades"
-					action="#{TipoModalidadeMBController.salvarAdicionarModalidade()}" 
+				<p:commandButton process="@form" 
+					action="#{TipoModalidadeMBController.salvarAdicionarModalidade()}"
 					value="Salvar" />
-				<p:commandButton ajax="false" id="btnCancelar"
+					
+				<p:commandButton id="btnCancelar"
 					action="#{TipoModalidadeMBController.cancelarAdicionarModalidade()}"
 					immediate="true" value="Cancelar" />
 

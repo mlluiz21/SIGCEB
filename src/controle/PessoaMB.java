@@ -14,6 +14,7 @@ import enuns.Uf;
 import modelo.dao.AtletaDAO;
 import modelo.dao.ComissaoDeArbitragemDAO;
 import modelo.dao.PessoaDAO;
+import modelo.dao.UsuarioDAO;
 import modelo.dominio.Atleta;
 import modelo.dominio.ComissaoDeArbitragem;
 import modelo.dominio.Pessoa;
@@ -32,6 +33,7 @@ public class PessoaMB implements Serializable{
 	
 	private ComissaoDeArbitragemDAO arbiDAO = new ComissaoDeArbitragemDAO();
 	private PessoaDAO pesDAO = new PessoaDAO();
+	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private AtletaDAO atleDAO = new AtletaDAO();
 	
 	private List<ComissaoDeArbitragem> arbitros = null;
@@ -140,15 +142,18 @@ public class PessoaMB implements Serializable{
 	 */
 
 	public String salvarPessoa() {
-
-	try {
 		
-		
+	/* try {
+				
 		// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O CAMPO
 		// VAZIO PARA UM LONG = 0.
 		if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 			this.getPessoa().setId(null);
-		this.pesDAO.salvar(this.pessoa);
+		this.pessoa = this.pesDAO.salvar(this.pessoa);
+		
+		this.usuario.setPessoa(this.pessoa);
+		this.usuario = this.usuDAO.salvar(this.usuario);
+		
 		this.pessoas = null; // LIMPA A LISTA
 		this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA
 
@@ -156,12 +161,17 @@ public class PessoaMB implements Serializable{
 		
 		System.out.println(e.getMessage());
 		
-	}
+	}*/
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "/pages/criarLoginDialog.jsf";
 	}
+	
+	public String criarUsuario(){
+		
+		return "/pages/criarLoginDialog.jsf";
+	}
 
-	public String salvarPessoaSistema() {
+	/*public String salvarPessoaSistema() {
 		
 		try {
 			
@@ -182,7 +192,7 @@ public class PessoaMB implements Serializable{
 		
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "pages/indexSistema.jsf";
-	}
+	}*/
 	
 	
 	//TROCAR PARA cancelarCADASTROPessoa

@@ -28,8 +28,8 @@ public class Usuario implements Serializable{
 	@Column (name = "idUsuario")
 	private Long id;
 	
-	@OneToOne(mappedBy="perfil")
-	@JoinColumn(name="idPessoa", nullable=true)
+	@OneToOne
+	@JoinColumn(name="idPessoa", referencedColumnName = "idPessoa", nullable=true)
 	private Pessoa pessoa;	
 				
 	@Column (length = 35, unique = true)
@@ -109,7 +109,7 @@ public class Usuario implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + /*", pessoa=" + pessoa + */", login=" + login + ", senha=" + senha + ", tipoDeUsuario="
+		return "Usuario [id=" + id + ", pessoa=" + pessoa + ", login=" + login + ", senha=" + senha + ", tipoDeUsuario="
 				+ tipoDeUsuario + "]";
 	}
 
@@ -118,10 +118,6 @@ public class Usuario implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		/*result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());*/
-		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
-		result = prime * result + ((tipoDeUsuario == null) ? 0 : tipoDeUsuario.hashCode());
 		return result;
 	}
 
@@ -139,24 +135,9 @@ public class Usuario implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		/*if (pessoa == null) {
-			if (other.pessoa != null)
-				return false;
-		} else if (!pessoa.equals(other.pessoa))
-			return false;*/
-		if (senha == null) {
-			if (other.senha != null)
-				return false;
-		} else if (!senha.equals(other.senha))
-			return false;
-		if (tipoDeUsuario != other.tipoDeUsuario)
-			return false;
 		return true;
 	}
+
+	
 	
 }

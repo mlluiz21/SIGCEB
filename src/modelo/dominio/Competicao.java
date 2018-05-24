@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import enuns.Duracao;
+import enuns.TipoDeCompeticao;
 
 
 @Entity
@@ -39,7 +40,7 @@ public class Competicao implements Serializable{
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn (name = "idOrganizador", referencedColumnName = "idOrganizador", nullable = false)
+	@JoinColumn (name = "idOrganizador")
 	private OrganizadorOuInstituicao organizadorOuInstituicao;
 	
 	@OneToMany (mappedBy = "competicao", targetEntity = OrganizarRodadas.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,22 +57,26 @@ public class Competicao implements Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private TipoDeCompeticao tipoDeCompeticao;
 
 	@Column (length = 60, nullable = false)
 	@NotEmpty(message = "Obrigatório definir nome da Competição")
 	private String nomeDaCompeticao;
 	
 	@Enumerated(EnumType.STRING)
-	@Column (length = 8, nullable = false)
-	@NotEmpty(message = "")
+	@Column (nullable = false)
+	//@NotEmpty(message = "")
 	private Duracao duracao;
 	
 	@Column (length = 2, nullable = false)
-	@NotEmpty(message = "")
+	//@NotEmpty(message = "")
 	private int quantidadeDeEquipes;
 	
 	@Column (length = 2, nullable = false)
-	@NotEmpty(message = "")
+	//@NotEmpty(message = "")
 	private int quantidadeDeGrupos;
 	
 	@Column (nullable = false)
@@ -90,6 +95,7 @@ public class Competicao implements Serializable{
 		
 		super();
 		this.setId(id);
+		this.setTipoDeCompeticao(tipoDeCompeticao);
 		this.setNomeDaCompeticao(nomeDaCompeticao);
 		this.setDuracao(duracao);
 		this.setQuantidadeDeEquipes(quantidadeDeEquipes);
@@ -120,6 +126,14 @@ public class Competicao implements Serializable{
 
 	public void setListAdicionarEquipe(List<AdicionarEquipe> listAdicionarEquipe) {
 		this.listAdicionarEquipe = listAdicionarEquipe;
+	}
+	
+	public TipoDeCompeticao getTipoDeCompeticao() {
+		return tipoDeCompeticao;
+	}
+
+	public void setTipoDeCompeticao(TipoDeCompeticao tipoDeCompeticao) {
+		this.tipoDeCompeticao = tipoDeCompeticao;
 	}
 
 	public String getNomeDaCompeticao() {
@@ -188,10 +202,35 @@ public class Competicao implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Competicao [id=" + id + ", listOrganizarRodadas=" + listOrganizarRodadas + ", listAdicionarEquipe="
+		return "Competicao [id=" + id + ", tipoDeCompeticao=" + tipoDeCompeticao + ", listOrganizarRodadas=" + listOrganizarRodadas + ", listAdicionarEquipe="
 				+ listAdicionarEquipe + ", nomeDaCompeticao=" + nomeDaCompeticao + ", duracao=" + duracao
 				+ ", quantidadeDeEquipes=" + quantidadeDeEquipes + ", quantidadeDeGrupos=" + quantidadeDeGrupos
 				+ ", dataDeInicio=" + dataDeInicio + ", regrasDaCompeticao=" + regrasDaCompeticao + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Competicao other = (Competicao) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 

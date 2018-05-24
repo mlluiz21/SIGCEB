@@ -2,6 +2,7 @@ package controle;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import controle.util.EmailJava;
 import enuns.TipoDeUsuario;
+import modelo.dao.PessoaDAO;
 import modelo.dao.UsuarioDAO;
 import modelo.dominio.Pessoa;
 import modelo.dominio.Usuario;
@@ -23,6 +26,7 @@ public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private boolean autenticado = false;
+	private PessoaDAO pesDAO = new PessoaDAO();
 	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private String login;
 	private String senha;
@@ -30,6 +34,7 @@ public class LoginMB implements Serializable {
 	private String tipoUsu;
 	private String link = "";
 	private Pessoa pessoa;
+	private List<Pessoa> pessoas = null;
 
 	public UsuarioDAO getUsuDAO() {
 		return usuDAO;
@@ -87,6 +92,17 @@ public class LoginMB implements Serializable {
 		this.pessoa = pessoa;
 	}
 
+	public List<Pessoa> getPessoas() {
+		if (this.pessoas == null) {
+			this.pessoas = this.pesDAO.lerTodos();
+		}
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
 	public void setAutenticado(boolean autenticado) {
 		this.autenticado = autenticado;
 	}
@@ -95,7 +111,6 @@ public class LoginMB implements Serializable {
 		return TipoDeUsuario.values();
 	}
 
-	
 	public void abrirDialogCriarLogin() {
 
 		// Criando mapa de parametros string
@@ -113,13 +128,43 @@ public class LoginMB implements Serializable {
 		RequestContext.getCurrentInstance().openDialog("criarLoginDialog", criarLogin, null);
 	}
 
-	
+	/*
+	 * public String salvarPessoa() {
+	 * 
+	 * tipoUsu = usu.getTipoDeUsuario().toString();
+	 * 
+	 * try {
+	 * 
+	 * // DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O CAMPO //
+	 * VAZIO PARA UM LONG = 0. if ((this.getPessoa().getId() != null) &&
+	 * (this.getPessoa().getId().longValue() == 0))
+	 * this.getPessoa().setId(null);
+	 * 
+	 * this.usu.setPessoa(this.pessoa); this.pessoa =
+	 * this.pesDAO.salvar(this.pessoa);
+	 * 
+	 * if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue()
+	 * == 0)) this.getUsu().setId(null);
+	 * 
+	 * this.usu = this.usuDAO.salvar(this.usu);
+	 * 
+	 * this.pessoas = null; // LIMPA A LISTA this.setPessoa(new Pessoa()); //
+	 * LIMPAR O OBJETO DA P�GINA this.setUsu(new Usuario());
+	 * 
+	 * } catch (Exception e) { // SE GERAR ALGUM TIPO DE ERRO, MOSTRAR ABAIXO
+	 * 
+	 * System.out.println(e.getMessage());
+	 * 
+	 * } // EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA return
+	 * verificarTipoUsu(); }
+	 */
+
 	// VERIFICAR NOVO PERFIL DE USUÁRIO NO SISTEMA
 	// ********************************************************************* //
 	public String verificarTipoUsu() {
 
 		String t = "";
-		
+
 		switch (tipoUsu) {
 
 		case "ATLETA":
@@ -142,7 +187,6 @@ public class LoginMB implements Serializable {
 		return link = t;
 	}
 
-		
 	// CRIAR NOVO PERFIL DE USUÁRIO NO SISTEMA
 	// *************************************************************************
 	// //
@@ -152,38 +196,41 @@ public class LoginMB implements Serializable {
 
 		try {
 
+			// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O
+			// CAMPO
+			// VAZIO PARA UM LONG = 0.
+			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
+				this.getPessoa().setId(null);
+
+			// this.pessoa = this.pesDAO.salvar(this.pessoa);
 
 			if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))
 				this.getUsu().setId(null);
-/*			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
-				this.getPessoa().setId(null);
-*/
-			this.usuDAO.salvar(this.usu);
+			this.usu.setPessoa(this.pessoa);
 
-			this.setPessoa(new Pessoa());
+			this.usu = this.usuDAO.salvar(this.usu);
+
+			this.pessoas = null; // LIMPA A LISTA
+			this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA
 			this.setUsu(new Usuario());
-			// Usuario objetoDoBancoTipoUsuario =
-			// this.usuDAO.lerPorId(getTipoDeUsuario());
 
 			FacesMessage msg2 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro do Login realizado com sucesso!",
 					null);
 			FacesContext.getCurrentInstance().addMessage(null, msg2);
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e);
 		}
-		
+
 		return verificarTipoUsu();
 	}
 
-	
 	public String telaRecuperarSenha() {
 
 		return "/pages/recuperarSenha.jsf";
 	}
 
-	
 	public String cancelarRecuperarSenha() {
 
 		this.setLogin(null);
@@ -192,13 +239,11 @@ public class LoginMB implements Serializable {
 		return "/pages/login.jsf";
 	}
 
-	
 	public String fazerCadastro() {
 
 		return "/pages/fazerCadastro.jsf";
 	}
 
-	
 	public String autenticarUsuario() {
 
 		boolean autenticadoOk = false;
@@ -225,20 +270,24 @@ public class LoginMB implements Serializable {
 			return "/pages/login.jsf?faces-redirect=true";
 	}
 
-	
 	// FALTA FINALIZAR O MÉTODO PRA DISPARAR EMAIL #################
 	public void enviarEmail() {
 
-		@SuppressWarnings("unused")
-		String dispararEmail = "";
+		try {
 
-		Usuario loginBanco = usuDAO.lerPorLogin(this.login);
-		FacesContext contexto = FacesContext.getCurrentInstance();
+			String dispararEmail = "";
 
-		if (loginBanco == null) {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
-		} else {
-			dispararEmail = this.pessoa.getEmail();
+			Usuario loginBanco = usuDAO.lerPorLogin(this.login);
+			FacesContext contexto = FacesContext.getCurrentInstance();
+
+			if (loginBanco == null) {
+				contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O usuario nao existe.", null));
+			} else {
+				dispararEmail = this.pessoa.getEmail();
+				EmailJava.emailDestinatario = dispararEmail;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 
 	}

@@ -31,12 +31,12 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "id_Pessoa", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "id_Pessoa", sequenceName = "seq_Pessoa", allocationSize = 1)
+	@GeneratedValue(generator = "idPessoa", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "idPessoa", sequenceName = "seqPessoa", allocationSize = 1)
 	@Column(name = "idPessoa")
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy="pessoa", cascade = CascadeType.ALL)
 	private Usuario perfil;
 
 	@Size(min = 8, max = 70)
@@ -90,13 +90,12 @@ public class Pessoa implements Serializable {
 		super();
 	}
 
-	public Pessoa(Long id, Usuario perfil, String nomeCompleto, String cpf, String rg, Date dataDeNascimento, Sexo sexo,
+	public Pessoa(Long id, String nomeCompleto, String cpf, String rg, Date dataDeNascimento, Sexo sexo,
 			String nomeDaMae, String nomeDoPai, EstadoCivil estadoCivil, TipoSanguineo tipoSanguineo,
 			GrauDeEscolaridade grauDeEscolaridade, String email, String celular, String telefone, Endereco endereco) {
 
 		super();
 		this.setId(id);
-		this.setPerfil(this.getPerfil());
 		this.setNomeCompleto(nomeCompleto);
 		this.setCpf(cpf);
 		this.setRg(rg);
@@ -254,18 +253,17 @@ public class Pessoa implements Serializable {
 				+ ", grauDeEscolaridade=" + grauDeEscolaridade + ", email=" + email + ", celular=" + celular
 				+ ", telefone=" + telefone + ", endereco=" + endereco + "]";
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		return result;
 	}
 
+	//TESTA SE DOIS OBJETOS SÃO IGUAIS, PORQUE IMPLEMENTAR ESSE MÉTODO, PARA QUE A JPA POSSA FUNCIONAR BEM E A JPA VAI LER NA MÉMORIA
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -280,26 +278,11 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!cpf.equals(other.cpf))
 			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (rg == null) {
-			if (other.rg != null)
-				return false;
-		} else if (!rg.equals(other.rg))
-			return false;
 		return true;
-	}
-
-	public Pessoa getPessoa() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
