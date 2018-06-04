@@ -35,8 +35,8 @@ public class OrganizadorOuInstituicao implements Serializable{
 	@JoinColumn (name = "idPessoa", referencedColumnName = "idPessoa")
 	private Pessoa pessoa;
 	
-	@OneToMany(mappedBy = "organizadorOuInstituicao", cascade = CascadeType.ALL)
-	private List<Competicao> listCompeticao;
+	/*@OneToMany(mappedBy = organizadorOuInstituicao, cascade = CascadeType.ALL)
+	private List<Competicao> listCompeticao;*/
 	
 	@OneToMany(mappedBy = "organizadorOuInstituicao", cascade = CascadeType.ALL)
 	private List<Solicitante> solicitantes;
@@ -88,7 +88,7 @@ public class OrganizadorOuInstituicao implements Serializable{
 		this.pessoa = pessoa;
 	}
 	
-	public List<Competicao> getListCompeticao() {
+	/*public List<Competicao> getListCompeticao() {
 		return listCompeticao;
 	}
 
@@ -96,7 +96,7 @@ public class OrganizadorOuInstituicao implements Serializable{
 	public void setListCompeticao(List<Competicao> listCompeticao) {
 		this.listCompeticao = listCompeticao;
 	}
-
+*/
 	public List<Solicitante> getSolicitantes() {
 		return solicitantes;
 	}

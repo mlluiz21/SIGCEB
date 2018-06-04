@@ -11,18 +11,18 @@
 
 			<p:dataTable id="listaCompeticao"
 				value="#{CampeonatosMB_Controller.listCompeticoes}" var="competicao"
-				emptyMessage="Nenhuma competicão cadastada." rows="15"
+				emptyMessage="Nenhuma competicão cadastada até o momento." rows="15"
 				paginator="true" paginatorPosition="bottom">
 
 				<f:facet name="header">
 		            <h3>Lista de Competições</h3>
 		        </f:facet>
-<!-- 
+ 
 				<p:column headerText="Tipo de Competição"
 					sortBy="#{competicao.tipoDeCompeticao}">
 					<h:outputText value="#{competicao.tipoDeCompeticao}" />
 				</p:column>
--->
+
 				<p:column headerText="Nome da Competição"
 					sortBy="#{competicao.nomeDaCompeticao}">
 					<h:outputText value="#{competicao.nomeDaCompeticao}" />

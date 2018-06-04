@@ -13,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -39,10 +37,10 @@ public class Competicao implements Serializable{
 	@Column (name = "idCompeticao")
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn (name = "idOrganizador")
-	private OrganizadorOuInstituicao organizadorOuInstituicao;
-	
+//	@ManyToOne
+//	@JoinColumn (name = "idOrganizador")
+//	private OrganizadorOuInstituicao organizadorOuInstituicao;
+		
 	@OneToMany (mappedBy = "competicao", targetEntity = OrganizarRodadas.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrganizarRodadas> listOrganizarRodadas;
 	
@@ -184,13 +182,13 @@ public class Competicao implements Serializable{
 		this.regrasDaCompeticao = regrasDaCompeticao;
 	}
 
-	public OrganizadorOuInstituicao getOrganizadorOuInstituicao() {
-		return organizadorOuInstituicao;
-	}
-
-	public void setOrganizadorOuInstituicao(OrganizadorOuInstituicao organizadorOuInstituicao) {
-		this.organizadorOuInstituicao = organizadorOuInstituicao;
-	}
+//	public OrganizadorOuInstituicao getOrganizadorOuInstituicao() {
+//		return organizadorOuInstituicao;
+//	}
+//
+//	public void setOrganizadorOuInstituicao(OrganizadorOuInstituicao organizadorOuInstituicao) {
+//		this.organizadorOuInstituicao = organizadorOuInstituicao;
+//	}
 
 	public Date getDataDeCadastro() {
 		return dataDeCadastro;

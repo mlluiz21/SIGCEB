@@ -35,6 +35,7 @@ public class LoginMB implements Serializable {
 	private String link = "";
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas = null;
+	public static String recuperarSenha;
 
 	public UsuarioDAO getUsuDAO() {
 		return usuDAO;
@@ -269,13 +270,14 @@ public class LoginMB implements Serializable {
 		else
 			return "/pages/login.jsf?faces-redirect=true";
 	}
+	
 
-	// FALTA FINALIZAR O MÉTODO PRA DISPARAR EMAIL #################
+	// ################# MÉTODO PRA DISPARAR EMAIL DE RECUPERAÇÃO DE SENHA #################
 	public void enviarEmail() {
 
 		try {
 
-			String dispararEmail = "";
+			String dispararEmail = "";					
 
 			Usuario loginBanco = usuDAO.lerPorLogin(this.login);
 			FacesContext contexto = FacesContext.getCurrentInstance();
@@ -285,6 +287,8 @@ public class LoginMB implements Serializable {
 			} else {
 				dispararEmail = this.pessoa.getEmail();
 				EmailJava.emailDestinatario = dispararEmail;
+				recuperarSenha = this.usu.getSenha();
+				
 			}
 		} catch (Exception e) {
 			System.out.println(e);
