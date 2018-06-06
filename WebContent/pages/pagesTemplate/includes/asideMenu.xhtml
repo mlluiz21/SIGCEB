@@ -35,6 +35,9 @@
 				<p:menuitem value="Competição"
 					onclick="PF('novaCompeticaoDialog').show()" icon="ui-icon-disk" />
 
+				<p:menuitem value="Adicionar Jogadores"
+					onclick="PF('addJoagdorDialog').show()" icon="ui-icon-disk" />
+
 				<p:menuitem value="Adicionar Modalidades" process="@this"
 					oncomplete="PF('novaModalidadeDialog').show()" icon="ui-icon-disk" />
 
@@ -448,10 +451,10 @@
 
 			<h:panelGroup layout="block" style="text-align: center">
 
-				<p:commandButton process="@form" 
+				<p:commandButton process="@form"
 					action="#{TipoModalidadeMBController.salvarAdicionarModalidade()}"
 					value="Salvar" />
-					
+
 				<p:commandButton id="btnCancelar"
 					action="#{TipoModalidadeMBController.cancelarAdicionarModalidade()}"
 					immediate="true" value="Cancelar" />
@@ -459,6 +462,77 @@
 			</h:panelGroup>
 
 		</p:dialog>
+	</h:form>
+
+
+
+	<!-- 		ADICIONAR JOGADORES A MODALIDADE DA EQUIPE	 		-->
+
+	<h:form id="formAddJoagdor">
+		<p:dialog header="Adicionar Jogador" widgetVar="addJoagdorDialog"
+			id="addJoagdor-dialog" resizable="false" modal="true"
+			closeOnEscape="true" appendTo="@(body)">
+
+
+			<!--  EXIBE OS DADOS DA EQUIPE, ACIMA DAS MODALIDADES -->
+
+			<p:panelGrid columns="2"
+				style="width:550px; text-align:left; margin: 0 auto">
+
+				<h:outputLabel value="Nome da Equipe:" for="nomeDaEquipe" />
+				<p:outputLabel id="nomeDaEquipe"
+					value="#{ResponsavelPorEquipeMBController.responsavelPorEquipe.nomeDaEquipe}" />
+
+				<h:outputLabel value="1º Nome da Equipe:" for="nomeFantasia" />
+				<p:outputLabel id="nomeFantasia"
+					value="#{EquipeMBController.equipe.nomeFantasia}" />
+
+				<h:outputLabel value="Técnico:" for="tecnico" />
+				<p:outputLabel id="tecnico"
+					value="#{EquipeMBController.equipe.tecnico}" />
+
+			</p:panelGrid>
+			<br></br>
+
+			<!--###		 FIM DOS DADOS DA EQUIPE, ACIMA DAS MODALIDADES -->
+
+
+
+			<p:accordionPanel>
+
+				<p:tab title="Modalidades da Equipe">
+
+					<p:panelGrid columns="1"
+						style="width:550px; text-align:left; margin: 0 auto">
+
+						<p:dataTable id="listDeModalidades"
+							value="#{TipoModalidadeMBController.modalidades}"
+							var="modalidades"
+							emptyMessage="Nenhuma Modalidade da equipe cadastado." rows="10"
+							paginator="true" paginatorPosition="bottom">
+
+							<f:facet name="header">
+								<h4>Modalidades da Equipe</h4>
+							</f:facet>
+
+							<p:column headerText="Nome da Modalidade"
+								sortBy="#{TipoModalidadeMBController.modalidade.modalidade}">
+								<h:outputText
+									value="#{TipoModalidadeMBController.modalidade.modalidade}" />
+							</p:column>
+
+							<p:column headerText="+Jogadores">
+								<h:outputText value="+" />
+							</p:column>
+
+						</p:dataTable>
+
+					</p:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+
+		</p:dialog>
+
 	</h:form>
 
 

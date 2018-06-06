@@ -35,8 +35,8 @@ public class Equipe implements Serializable{
 	@OneToMany (mappedBy = "equipeAtletas", targetEntity = Periodo.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Periodo> listAtletas; 
 	
-	@OneToMany (mappedBy = "equipe", targetEntity = TipoDeModalidade.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<TipoDeModalidade> listTipoDeModalidade;
+	/*@OneToMany (mappedBy = "equipe", targetEntity = TipoDeModalidade.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<TipoDeModalidade> listTipoDeModalidade;*/
 	
 	@OneToMany (mappedBy = "equipe", targetEntity = AdicionarEquipe.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AdicionarEquipe> listAdicionarEquipe;
@@ -82,7 +82,7 @@ public class Equipe implements Serializable{
 	public void setResponsavelPorEquipeTecnico(ResponsavelPorEquipeTecnico responsavelPorEquipeTecnico) {
 		this.responsavelPorEquipeTecnico = responsavelPorEquipeTecnico;
 	}
-	
+	/*
 	public List<TipoDeModalidade> getListTipoDeModalidade() {
 		return listTipoDeModalidade;
 	}
@@ -90,7 +90,7 @@ public class Equipe implements Serializable{
 	public void setListTipoDeModalidade(List<TipoDeModalidade> listTipoDeModalidade) {
 		this.listTipoDeModalidade = listTipoDeModalidade;
 	}
-
+*/
 	public List<AdicionarEquipe> getListAdicionarEquipe() {
 		return listAdicionarEquipe;
 	}
@@ -128,7 +128,7 @@ public class Equipe implements Serializable{
 	@Override
 	public String toString() {
 		return "Equipe [id=" + id + ", responsavelPorEquipeTecnico=" + responsavelPorEquipeTecnico + ", listAtletas="
-				+ listAtletas + ", listTipoDeModalidade=" + listTipoDeModalidade + ", listAdicionarEquipe="
+				+ listAtletas + ", listAdicionarEquipe="
 				+ listAdicionarEquipe + ", nomeFantasia=" + nomeFantasia + ", bairro=" + bairro + ", tecnico=" + tecnico
 				+ "]";
 	}

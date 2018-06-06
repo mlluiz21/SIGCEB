@@ -22,24 +22,24 @@ import modelo.dominio.Usuario;
 
 @ManagedBean(name = "pessoaMBController")
 @SessionScoped
-public class PessoaMB implements Serializable{
+public class PessoaMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Pessoa pessoa = new Pessoa();
 	private Usuario usuario = new Usuario();
 	private Atleta atleta = new Atleta();
 	private ComissaoDeArbitragem arbito = new ComissaoDeArbitragem();
-	
+
 	private ComissaoDeArbitragemDAO arbiDAO = new ComissaoDeArbitragemDAO();
 	private PessoaDAO pesDAO = new PessoaDAO();
 	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private AtletaDAO atleDAO = new AtletaDAO();
-	
+
 	private List<ComissaoDeArbitragem> arbitros = null;
 	private List<Atleta> atletas = null;
 	private List<Pessoa> pessoas = null;
-		
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -47,9 +47,7 @@ public class PessoaMB implements Serializable{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-	
-	
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -64,11 +62,11 @@ public class PessoaMB implements Serializable{
 		}
 		return pessoas;
 	}
-		
+
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
 	}
-		
+
 	public Atleta getAtleta() {
 		return atleta;
 	}
@@ -86,7 +84,7 @@ public class PessoaMB implements Serializable{
 	}
 
 	public List<ComissaoDeArbitragem> getArbitros() {
-		if (this.arbitros == null){
+		if (this.arbitros == null) {
 			this.arbitros = this.arbiDAO.lerTodos();
 		}
 		return arbitros;
@@ -97,7 +95,7 @@ public class PessoaMB implements Serializable{
 	}
 
 	public List<Atleta> getAtletas() {
-		if (this.atletas == null){
+		if (this.atletas == null) {
 			this.atletas = this.atleDAO.lerTodos();
 		}
 		return atletas;
@@ -107,23 +105,23 @@ public class PessoaMB implements Serializable{
 		this.atletas = atletas;
 	}
 
-	public Sexo[] getSexo(){		
+	public Sexo[] getSexo() {
 		return Sexo.values();
 	}
-	
-	public Uf[] getUf(){		
+
+	public Uf[] getUf() {
 		return Uf.values();
 	}
-	
-	public EstadoCivil[] getEstadoCivil(){		
+
+	public EstadoCivil[] getEstadoCivil() {
 		return EstadoCivil.values();
 	}
-	
-	public GrauDeEscolaridade[] getGrauDeEscolaridade(){		
+
+	public GrauDeEscolaridade[] getGrauDeEscolaridade() {
 		return GrauDeEscolaridade.values();
 	}
-	
-	public TipoSanguineo[] getTipoSanguineo(){		
+
+	public TipoSanguineo[] getTipoSanguineo() {
 		return TipoSanguineo.values();
 	}
 
@@ -142,70 +140,77 @@ public class PessoaMB implements Serializable{
 	 */
 
 	public String salvarPessoa() {
-		
-	/* try {
-				
-		// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O CAMPO
-		// VAZIO PARA UM LONG = 0.
-		if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
-			this.getPessoa().setId(null);
-		this.pessoa = this.pesDAO.salvar(this.pessoa);
-		
-		this.usuario.setPessoa(this.pessoa);
-		this.usuario = this.usuDAO.salvar(this.usuario);
-		
-		this.pessoas = null; // LIMPA A LISTA
-		this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA
 
-	} catch (Exception e) { // SE GERAR ALGUM TIPO DE ERRO, MOSTRAR ABAIXO
-		
-		System.out.println(e.getMessage());
-		
-	}*/
+		/*
+		 * try {
+		 * 
+		 * // DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O
+		 * CAMPO // VAZIO PARA UM LONG = 0. if ((this.getPessoa().getId() !=
+		 * null) && (this.getPessoa().getId().longValue() == 0))
+		 * this.getPessoa().setId(null); this.pessoa =
+		 * this.pesDAO.salvar(this.pessoa);
+		 * 
+		 * this.usuario.setPessoa(this.pessoa); this.usuario =
+		 * this.usuDAO.salvar(this.usuario);
+		 * 
+		 * this.pessoas = null; // LIMPA A LISTA this.setPessoa(new Pessoa());
+		 * // LIMPAR O OBJETO DA P�GINA
+		 * 
+		 * } catch (Exception e) { // SE GERAR ALGUM TIPO DE ERRO, MOSTRAR
+		 * ABAIXO
+		 * 
+		 * System.out.println(e.getMessage());
+		 * 
+		 * }
+		 */
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "/pages/criarLoginDialog.jsf";
 	}
-	
-	public String criarUsuario(){
-		
+
+	public String criarUsuario() {
+
 		return "/pages/criarLoginDialog.jsf";
 	}
 
-	/*public String salvarPessoaSistema() {
-		
-		try {
-			
-			// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O CAMPO
-			// VAZIO PARA UM LONG = 0.
-			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
-				this.getPessoa().setId(null);
-			this.pesDAO.salvar(this.pessoa);
-			this.pessoas = null; // LIMPA A LISTA
-			this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA
-			
-			System.out.println("Dados gravado com sucesso!");
-			
-		} catch (Exception e) {
+	/*
+	 * public String salvarPessoaSistema() {
+	 * 
+	 * try {
+	 * 
+	 * // DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O CAMPO //
+	 * VAZIO PARA UM LONG = 0. if ((this.getPessoa().getId() != null) &&
+	 * (this.getPessoa().getId().longValue() == 0))
+	 * this.getPessoa().setId(null); this.pesDAO.salvar(this.pessoa);
+	 * this.pessoas = null; // LIMPA A LISTA this.setPessoa(new Pessoa()); //
+	 * LIMPAR O OBJETO DA P�GINA
+	 * 
+	 * System.out.println("Dados gravado com sucesso!");
+	 * 
+	 * } catch (Exception e) {
+	 * 
+	 * System.out.println(e.getMessage()); }
+	 * 
+	 * // EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA return
+	 * "pages/indexSistema.jsf"; }
+	 */
 
-			System.out.println(e.getMessage());
-		}
-		
-		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
-		return "pages/indexSistema.jsf";
-	}*/
-	
-	
-	//TROCAR PARA cancelarCADASTROPessoa
-	
+	// TROCAR PARA cancelarCADASTROPessoa
+
 	public String cancelarPessoa() {
-		
+
 		// LIMPAR O OBJETO DA P�GINA
 		this.setPessoa(new Pessoa());
-		
+
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "/pages/home.jsf";
 	}
-	
+
+	public String outro() {
+
+		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
+		return "/pages/fazerCadastro2.jsf";
+	}
+
 	public String cancelarPessoaSistema() {
 
 		// LIMPAR O OBJETO DA P�GINA
@@ -215,8 +220,8 @@ public class PessoaMB implements Serializable{
 		return "/pages/indexSistema.jsf";
 	}
 
-	public String cancelarEdicaoPerfil() {		
-					
+	public String cancelarEdicaoPerfil() {
+
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "/pages/indexSistema.jsf";
 	}

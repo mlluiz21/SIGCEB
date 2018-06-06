@@ -37,7 +37,7 @@ public class Pessoa implements Serializable {
 	private Long id;
 	
 	@OneToOne(mappedBy="pessoa", cascade = CascadeType.ALL)
-	private Usuario perfil;
+	private Usuario usuario;
 
 	@Size(min = 8, max = 70)
 	@Column(length = 70, nullable = false)
@@ -121,12 +121,12 @@ public class Pessoa implements Serializable {
 		this.id = id;
 	}
 
-	public Usuario getPerfil() {
-		return perfil;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setPerfil(Usuario perfil) {
-		this.perfil = perfil;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getNomeCompleto() {

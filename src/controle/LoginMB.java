@@ -202,14 +202,14 @@ public class LoginMB implements Serializable {
 			// VAZIO PARA UM LONG = 0.
 			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 				this.getPessoa().setId(null);
-
-			// this.pessoa = this.pesDAO.salvar(this.pessoa);
+			
+			this.pessoa = this.pesDAO.salvar(this.pessoa);
+			this.usu.setPessoa(this.pessoa);
 
 			if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))
 				this.getUsu().setId(null);
-			this.usu.setPessoa(this.pessoa);
-
-			this.usu = this.usuDAO.salvar(this.usu);
+			
+			this.usuDAO.salvar(this.usu);
 
 			this.pessoas = null; // LIMPA A LISTA
 			this.setPessoa(new Pessoa()); // LIMPAR O OBJETO DA P�GINA

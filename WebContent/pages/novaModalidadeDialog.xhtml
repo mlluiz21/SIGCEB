@@ -30,7 +30,7 @@
 				<p:selectOneMenu size="15" id="AdicionarNovaModalidade"
 					value="#{TipoModalidadeMBController.modalidade.modalidade}"
 					required="true"
-					requiredMessage="O Campo Grau de Escolaridade é obrigatório.">
+					requiredMessage="escolha uma modalidade para adicionar.">
 
 					<f:selectItem itemLabel="Selecione..." />
 					<f:selectItems itemLabel="#{tipoModalidade.descricao}"
@@ -43,7 +43,7 @@
 
 			<h:panelGroup layout="block" style="text-align: center">
 
-				<p:commandButton ajax="false" id="btnSalvar" process="@this"
+				<p:commandButton ajax="false" id="btnSalvar" process="@form"
 					update="listDeModalidades"
 					action="#{TipoModalidadeMBController.salvarAdicionarModalidade()}"
 					value="Salvar" />
