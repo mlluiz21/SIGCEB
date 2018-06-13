@@ -49,12 +49,11 @@
 					<h:outputText value="#{solicitacao.nomeDaEquipe}" />
 				</p:column>
 
-				<p:column headerText="Excluir Solicitação" >
-				<h:form>
-					<p:commandButton type="button" title="delete" icon="ui-icon-trash"
-						actionListener="#{SolicitarParticipacaoMBController.excluirSolicitacao(solicitacao)}" 
-						update="listaSolicitacao" process="@this"/>
-				</h:form>
+				<p:column headerText="Excluir Solicitação">
+					<p:commandLink value="Delete"
+						actionListener="#{SolicitarParticipacaoMBController.excluirSolicitacao(solicitacao)}"
+						update="listaSolicitacao" process="@this" />
+
 				</p:column>
 
 			</p:dataTable>

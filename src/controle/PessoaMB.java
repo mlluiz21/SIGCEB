@@ -141,28 +141,31 @@ public class PessoaMB implements Serializable {
 
 	public String salvarPessoa() {
 
-		/*
-		 * try {
-		 * 
-		 * // DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O
-		 * CAMPO // VAZIO PARA UM LONG = 0. if ((this.getPessoa().getId() !=
-		 * null) && (this.getPessoa().getId().longValue() == 0))
-		 * this.getPessoa().setId(null); this.pessoa =
-		 * this.pesDAO.salvar(this.pessoa);
-		 * 
-		 * this.usuario.setPessoa(this.pessoa); this.usuario =
-		 * this.usuDAO.salvar(this.usuario);
-		 * 
-		 * this.pessoas = null; // LIMPA A LISTA this.setPessoa(new Pessoa());
-		 * // LIMPAR O OBJETO DA P�GINA
-		 * 
-		 * } catch (Exception e) { // SE GERAR ALGUM TIPO DE ERRO, MOSTRAR
-		 * ABAIXO
-		 * 
-		 * System.out.println(e.getMessage());
-		 * 
-		 * }
-		 */
+		try {
+
+			// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O
+			// CAMPO
+			// VAZIO PARA UM LONG = 0
+
+			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
+				this.getPessoa().setId(null);
+
+			//this.pessoa = this.pesDAO.salvar(this.pessoa);
+
+			this.usuario.setPessoa(this.pessoa);
+			this.usuario = this.usuDAO.salvar(this.usuario);
+
+			/*
+			this.pessoas = null; // LIMPA A LISTA 
+			this.setPessoa(new Pessoa());
+			// LIMPAR O OBJETO DA P�GINA
+			*/
+		} catch (Exception e) { // SE GERAR ALGUM TIPO DE ERRO, MOSTRAR ABAIXO
+
+			System.out.println(e.getMessage());
+
+		}
+
 		// EXECUTA A A��O LISTAR E RETORNA A SUA P�GINA
 		return "/pages/criarLoginDialog.jsf";
 	}

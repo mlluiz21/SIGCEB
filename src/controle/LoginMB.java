@@ -200,10 +200,11 @@ public class LoginMB implements Serializable {
 			// DEVE LIMPAR O ID COM VALOR ZERO, POIS O JSF SEMPRE CONVERTE O
 			// CAMPO
 			// VAZIO PARA UM LONG = 0.
-			if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
+			/*if ((this.getPessoa().getId() != null) && (this.getPessoa().getId().longValue() == 0))
 				this.getPessoa().setId(null);
 			
-			this.pessoa = this.pesDAO.salvar(this.pessoa);
+			this.pessoa = this.pesDAO.salvar(this.pessoa);*/
+			
 			this.usu.setPessoa(this.pessoa);
 
 			if ((this.getUsu().getId() != null) && (this.getUsu().getId().longValue() == 0))

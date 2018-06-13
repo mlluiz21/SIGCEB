@@ -36,6 +36,7 @@
 					onclick="PF('novaCompeticaoDialog').show()" icon="ui-icon-disk" />
 
 				<p:menuitem value="Adicionar Jogadores"
+					rendered="#{loginMBController.usu.tipoDeUsuario != Atleta || Arbitro || Organizador}"
 					onclick="PF('addJoagdorDialog').show()" icon="ui-icon-disk" />
 
 				<p:menuitem value="Adicionar Modalidades" process="@this"
